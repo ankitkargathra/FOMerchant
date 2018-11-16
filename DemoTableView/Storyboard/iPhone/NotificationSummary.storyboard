@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gJg-3g-Oru">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNextLTPro-Demi.otf">
+            <string>AvenirNextLTPro-Demi</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Notification Summary View Controller-->
+        <scene sceneID="6dN-fo-W18">
+            <objects>
+                <viewController storyboardIdentifier="NotificationSummaryViewController" id="gJg-3g-Oru" customClass="NotificationSummaryViewController" customModule="DemoTableView" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tHz-cI-JwA">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notification Sent Successfully" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfc-yv-awp" customClass="EPLabelTitle" customModule="DemoTableView" customModuleProvider="target">
+                                <rect key="frame" x="92.666666666666686" y="65" width="229" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="23.199999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="Zm3-cA-YKp">
+                                <rect key="frame" x="140.66666666666666" y="139.33333333333334" width="132.99999999999997" height="138.00000000000003"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Zm3-cA-YKp" secondAttribute="height" multiplier="133:138" id="0Ok-Jx-jUF"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNA-Mp-4I3" customClass="EPNotificationSuccess" customModule="DemoTableView" customModuleProvider="target">
+                                <rect key="frame" x="20" y="306.33333333333331" width="374" height="62.666666666666686"/>
+                                <string key="text">Your notifications have been sent successfully to your selected target audience. Visit list of notifications screen to view details.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7C-DG-i9f" customClass="EPButtonGreenButton" customModule="DemoTableView" customModuleProvider="target">
+                                <rect key="frame" x="18.333333333333343" y="398" width="377.33333333333326" height="54"/>
+                                <color key="backgroundColor" red="0.0039215686269999999" green="0.70588235290000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AvenirNextLTPro-Demi" family="Avenir Next LT Pro" pointSize="20"/>
+                                <state key="normal" title="List of Notification">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnListOfNotiFiPressed:" destination="gJg-3g-Oru" eventType="touchUpInside" id="hng-td-Tiz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDa-H2-gQy" customClass="EPButtonGreenButton" customModule="DemoTableView" customModuleProvider="target">
+                                <rect key="frame" x="18.333333333333343" y="457" width="377.33333333333326" height="54"/>
+                                <state key="normal" title="Back to Home">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="20.199999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="btnbackToHomePressed:" destination="gJg-3g-Oru" eventType="touchUpInside" id="sfC-H4-nRR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Zm3-cA-YKp" firstAttribute="width" secondItem="tHz-cI-JwA" secondAttribute="height" multiplier="133:736" id="0Ou-F2-rbS"/>
+                            <constraint firstItem="Zm3-cA-YKp" firstAttribute="top" secondItem="wfc-yv-awp" secondAttribute="bottom" constant="53.999999999999915" id="5yM-WQ-0Wj"/>
+                            <constraint firstItem="v7C-DG-i9f" firstAttribute="width" secondItem="tHz-cI-JwA" secondAttribute="width" multiplier="377.3:414" id="6Lt-wN-aXj"/>
+                            <constraint firstItem="TDa-H2-gQy" firstAttribute="top" secondItem="v7C-DG-i9f" secondAttribute="bottom" constant="5" id="KR7-qw-yCM"/>
+                            <constraint firstItem="RNA-Mp-4I3" firstAttribute="top" secondItem="Zm3-cA-YKp" secondAttribute="bottom" constant="28.999999999999943" id="Obj-1L-51h"/>
+                            <constraint firstItem="wfc-yv-awp" firstAttribute="top" secondItem="Ndg-eG-TgZ" secondAttribute="top" constant="45" id="SMl-uC-9X8"/>
+                            <constraint firstItem="TDa-H2-gQy" firstAttribute="width" secondItem="v7C-DG-i9f" secondAttribute="width" id="Zd7-iL-HA1"/>
+                            <constraint firstItem="TDa-H2-gQy" firstAttribute="height" secondItem="v7C-DG-i9f" secondAttribute="height" id="bOh-v8-8f6"/>
+                            <constraint firstItem="RNA-Mp-4I3" firstAttribute="height" secondItem="tHz-cI-JwA" secondAttribute="height" multiplier="61:716" id="cSy-AV-MVw"/>
+                            <constraint firstItem="RNA-Mp-4I3" firstAttribute="width" secondItem="tHz-cI-JwA" secondAttribute="width" multiplier="374:414" id="cq2-cq-m0d"/>
+                            <constraint firstItem="wfc-yv-awp" firstAttribute="centerX" secondItem="Ndg-eG-TgZ" secondAttribute="centerX" id="iEH-Sa-Yjf"/>
+                            <constraint firstItem="v7C-DG-i9f" firstAttribute="height" secondItem="tHz-cI-JwA" secondAttribute="height" multiplier="54:736" id="o7y-Cf-elI"/>
+                            <constraint firstItem="v7C-DG-i9f" firstAttribute="centerX" secondItem="RNA-Mp-4I3" secondAttribute="centerX" id="pQ3-u9-hNF"/>
+                            <constraint firstItem="v7C-DG-i9f" firstAttribute="top" secondItem="RNA-Mp-4I3" secondAttribute="bottom" constant="29" id="sRF-Wt-tXI"/>
+                            <constraint firstItem="TDa-H2-gQy" firstAttribute="centerX" secondItem="v7C-DG-i9f" secondAttribute="centerX" id="vDQ-DX-ONh"/>
+                            <constraint firstItem="Zm3-cA-YKp" firstAttribute="centerX" secondItem="wfc-yv-awp" secondAttribute="centerX" id="wNr-Ty-t7K"/>
+                            <constraint firstItem="RNA-Mp-4I3" firstAttribute="centerX" secondItem="Zm3-cA-YKp" secondAttribute="centerX" id="xbU-PY-qWl"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ndg-eG-TgZ"/>
+                    </view>
+                    <connections>
+                        <outlet property="lblDescription" destination="RNA-Mp-4I3" id="UU7-2R-y0B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MAl-EE-o4q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="208.69565217391306" y="123.91304347826087"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tick" width="493" height="493"/>
+    </resources>
+</document>

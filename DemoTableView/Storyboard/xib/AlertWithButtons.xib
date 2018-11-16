@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Regular.ttf">
+            <string>Montserrat-Regular</string>
+        </array>
+        <array key="Montserrat-SemiBold.ttf">
+            <string>Montserrat-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AlertWithButtons" customModule="DemoTableView" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TG9-ef-VTW">
+                    <rect key="frame" x="0.0" y="10" width="414" height="736"/>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vtf-vo-EH2">
+                    <rect key="frame" x="18" y="268.33333333333331" width="378" height="219.66666666666669"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alert" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Umq-54-Q45">
+                            <rect key="frame" x="163.33333333333334" y="38" width="51.666666666666657" height="31.666666666666671"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="23"/>
+                            <color key="textColor" red="0.0039215686269999999" green="0.70588235290000001" blue="0.37647058820000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to  Reject Magnus Order?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPE-6i-K8D">
+                            <rect key="frame" x="63" y="89.666666666666686" width="252" height="35"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POs-TP-ubz">
+                            <rect key="frame" x="0.0" y="160.66666666666669" width="378" height="0.66666666666665719"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.69999999999999996" id="dqf-7I-uvJ"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FmC-oP-eb3">
+                            <rect key="frame" x="188.66666666666666" y="161.33333333333337" width="0.66666666666665719" height="58.333333333333343"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="0.69999999999999996" id="e1H-8N-1x2"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uh-gA-j6P">
+                            <rect key="frame" x="0.0" y="161.33333333333337" width="188.66666666666666" height="58.333333333333343"/>
+                            <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16.700000762939453"/>
+                            <state key="normal" title="No">
+                                <color key="titleColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btnNoTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ieo-t4-b9c"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ll3-g2-z4c">
+                            <rect key="frame" x="189.33333333333337" y="161.33333333333337" width="188.66666666666663" height="58.333333333333343"/>
+                            <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16.700000762939453"/>
+                            <state key="normal" title="Yes">
+                                <color key="titleColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="btnYesTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qtg-yH-KAt"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="cPE-6i-K8D" firstAttribute="leading" secondItem="vtf-vo-EH2" secondAttribute="leading" constant="63" id="20o-e8-96V"/>
+                        <constraint firstItem="FmC-oP-eb3" firstAttribute="top" secondItem="POs-TP-ubz" secondAttribute="bottom" id="2D3-aZ-QcJ"/>
+                        <constraint firstItem="POs-TP-ubz" firstAttribute="leading" secondItem="vtf-vo-EH2" secondAttribute="leading" id="72O-Ms-zNr"/>
+                        <constraint firstAttribute="trailing" secondItem="POs-TP-ubz" secondAttribute="trailing" id="Acr-es-vzf"/>
+                        <constraint firstItem="FmC-oP-eb3" firstAttribute="leading" secondItem="1uh-gA-j6P" secondAttribute="trailing" id="Hvt-0j-dti"/>
+                        <constraint firstItem="POs-TP-ubz" firstAttribute="top" secondItem="cPE-6i-K8D" secondAttribute="bottom" constant="36" id="I9f-dO-4uo"/>
+                        <constraint firstItem="FmC-oP-eb3" firstAttribute="centerX" secondItem="POs-TP-ubz" secondAttribute="centerX" id="JfM-HO-YoQ"/>
+                        <constraint firstAttribute="trailing" secondItem="ll3-g2-z4c" secondAttribute="trailing" id="Kyi-Rt-jBb"/>
+                        <constraint firstAttribute="bottom" secondItem="1uh-gA-j6P" secondAttribute="bottom" id="LbQ-h0-C6h"/>
+                        <constraint firstAttribute="bottom" secondItem="FmC-oP-eb3" secondAttribute="bottom" id="NCl-lx-FV6"/>
+                        <constraint firstItem="1uh-gA-j6P" firstAttribute="top" secondItem="POs-TP-ubz" secondAttribute="bottom" id="Pfc-cL-ZKC"/>
+                        <constraint firstItem="Umq-54-Q45" firstAttribute="top" secondItem="vtf-vo-EH2" secondAttribute="top" constant="38" id="XYA-9X-hu7"/>
+                        <constraint firstAttribute="trailing" secondItem="cPE-6i-K8D" secondAttribute="trailing" constant="63" id="Yv0-da-2tN"/>
+                        <constraint firstItem="ll3-g2-z4c" firstAttribute="top" secondItem="POs-TP-ubz" secondAttribute="bottom" id="bIZ-BR-8Tb"/>
+                        <constraint firstItem="Umq-54-Q45" firstAttribute="centerX" secondItem="vtf-vo-EH2" secondAttribute="centerX" id="e7j-kU-mAA"/>
+                        <constraint firstAttribute="bottom" secondItem="ll3-g2-z4c" secondAttribute="bottom" id="fQK-cb-Ro1"/>
+                        <constraint firstAttribute="bottom" secondItem="POs-TP-ubz" secondAttribute="bottom" constant="58.299999999999997" id="fuE-8d-Q3x"/>
+                        <constraint firstItem="cPE-6i-K8D" firstAttribute="centerX" secondItem="vtf-vo-EH2" secondAttribute="centerX" id="iYP-CW-hu6"/>
+                        <constraint firstItem="1uh-gA-j6P" firstAttribute="leading" secondItem="vtf-vo-EH2" secondAttribute="leading" id="nT0-jQ-LSN"/>
+                        <constraint firstItem="ll3-g2-z4c" firstAttribute="leading" secondItem="FmC-oP-eb3" secondAttribute="trailing" id="qfN-zD-AxP"/>
+                        <constraint firstItem="cPE-6i-K8D" firstAttribute="top" secondItem="Umq-54-Q45" secondAttribute="bottom" constant="20" id="z3J-hP-geF"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vtf-vo-EH2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="DR9-eS-el8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vtf-vo-EH2" secondAttribute="trailing" constant="18" id="G40-Kl-zG7"/>
+                <constraint firstItem="TG9-ef-VTW" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="NWn-Oe-zRe"/>
+                <constraint firstItem="TG9-ef-VTW" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="XK8-kV-vP6"/>
+                <constraint firstItem="vtf-vo-EH2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="10" id="fwh-ge-ubi"/>
+                <constraint firstItem="TG9-ef-VTW" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="iz5-gs-Le9"/>
+                <constraint firstItem="TG9-ef-VTW" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="jgw-Jo-yHD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btnClose" destination="TG9-ef-VTW" id="h2w-wZ-M3G"/>
+                <outlet property="btnNo" destination="1uh-gA-j6P" id="4S2-Xc-kYZ"/>
+                <outlet property="btnYes" destination="ll3-g2-z4c" id="Iny-Nl-Up7"/>
+                <outlet property="lblMessage" destination="cPE-6i-K8D" id="hsX-6v-B81"/>
+            </connections>
+        </view>
+    </objects>
+</document>

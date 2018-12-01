@@ -12,7 +12,7 @@ import Foundation
 
 let BASE_URL = "http://13.233.29.215/"
 let MAINURL = "\(BASE_URL)api/v1/"
-let IMAGE_URL = "\(BASE_URL)images/profile-pic/"
+let IMAGE_URL = "\(BASE_URL)assets/profile_picture/"
 let BASEURL_GOOGLE_MAP = "https://maps.googleapis.com/maps/api/directions/json?"
 
 enum MethodType: String {
@@ -45,7 +45,9 @@ struct URLClass {
     static let kforgotPassword                  = "\(MAINURL)forgotPassword"
     
     // account settings
+    static let kgetRestaurentProfile            = "\(MAINURL)getRestaurentDetails"
     static let kupdateRestaurentProfile         = "\(MAINURL)updateRestaurentProfile"
+    static let kgetRestaurentImages             = "\(MAINURL)getRestaurentImage"
     static let kaddRestaurentPictures           = "\(MAINURL)addRestaurentPictures"
     static let kremoveRestaurentPictures        = "\(MAINURL)removeRestaurentPictures"
     

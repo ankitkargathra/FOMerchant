@@ -42,7 +42,7 @@ class LoginViewController: BaseViewController {
                             UserRootClass.shared.saveToDefaults()
                             AppDel.checkUserStatus()
                             if responseDict["message"] != nil {
-                                self.showToast(msg: "Signed In as \(String(describing: UserRootClass.shared.fullname!))")
+                                self.showToast(msg: "Signed In as \(String(describing: UserRootClass.shared.restaurantName!))")
                             }
                         }
                     }

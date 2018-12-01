@@ -33,7 +33,18 @@ class TabCell : UICollectionViewCell{
 
 class AccountSettingImageCell: UICollectionViewCell{
    
-    @IBOutlet var imgView : UIImageView!
-    @IBOutlet var btnAddImg : UIButton!
+    @IBOutlet weak var viewBorder: UIView!
+    @IBOutlet var btnAddImg : SLButtonImagePicker!
     @IBOutlet var btnRemoveImg : UIButton!
+    @IBOutlet weak var imgView: UIImageView!
+    
+}
+
+class sideMenuCell: UITableViewCell{
+    
+    @IBOutlet var imgViewProfile : EPImageView!
+    @IBOutlet weak var name: EPLabelNameSideMenu!
+    @IBOutlet weak var RestaurantStatus: UISwitch!
+    @IBOutlet weak var selfService: UISwitch!
+    
 }

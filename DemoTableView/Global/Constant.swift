@@ -18,6 +18,7 @@ let AppDel               = UIApplication.shared.delegate as! AppDelegate
 let kPresentedViewHeight = UIScreen.main.bounds.size.height
 let kPresentedViewWidth  = UIScreen.main.bounds.size.width
 let kDeviceFrame         = AppDel.window!.bounds
+let RESTUTANT_PLACEHOLDER_IMAGE = UIImage(named: "no-image-placeholder")
 
 let IS_iPHONE_5S        = UIScreen.main.bounds.size.height == 568 ? true : false as Bool
 let IS_iPHONE_6         = UIScreen.main.bounds.size.height == 667 ? true : false as Bool
@@ -153,6 +154,7 @@ struct EPConstant {
         static let email        = "email"
         static let password     = "password"
         static let usertype     = "usertype"
+        static let deviceId     = "device_id"
     }
     struct UpdateProfileKey
     {

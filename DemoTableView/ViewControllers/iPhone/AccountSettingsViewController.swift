@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import KFImageViewer
 
 class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDelegate {
-
+    
     
     @IBOutlet weak var btnChangePhoto: SLButtonImagePicker!
     @IBOutlet weak var txtName: RaisePlaceholder!
@@ -23,57 +22,55 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
     @IBOutlet weak var imgProfilePic: EPImageView!
     
     
-    var arrRestrutantImage = JSONDICTIONARY()
+    var arrPictureList:NSMutableArray = []
     
     override func viewDidLoad(){
         setUpSideMenu(isShow: true, title: "Account Settings")
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        txtName.validateTextField(type: .Email, minLength: 10, maxLength: 100, alignment: NSTextAlignment.left, placeHolder: "Name")
-        txtPhoneNumber.validateTextField(type: .Mobile, minLength: 6, maxLength: 100, alignment: NSTextAlignment.left, placeHolder: "Phone Number")
+        txtName.validateTextField(type: .Normal, minLength: 5, maxLength: 100, alignment: NSTextAlignment.left, placeHolder: "Name")
+        txtPhoneNumber.validateTextField(type: .Mobile, minLength: 6, maxLength: 15, alignment: NSTextAlignment.left, placeHolder: "Phone Number")
         scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 850)
+        scrollView.clipsToBounds = true
         btnChangePhoto.setTitle("Change Photo", for: .normal)
         txtEmail.isEnabled = false
         txtEmail.textColor = EPConstant.Colors.TEXT_GREY_THEME
-        
-        
-        txtName.text = "Domino's Pizza"
-        txtEmail.text = "support@dominos.com"
-        txtPhoneNumber.text = "84201048579342"
-        cnsHeightViewBanners.constant = 200
+        txtEmail.text = kCurrentUser.email
+        cnsHeightViewBanners.constant = 100
+        getUserProfileDetails()
+        getUserProfileImages()
         btnChangePhoto.imgePick = { (img) in
-         self.imgProfilePic.image = img
-//         let tapGest = UITapGestureRecognizer(target: self, action: #selector(self.tapImageView))
-//         tapGest.numberOfTapsRequired = 1
-//         tapGest.cancelsTouchesInView = false
-//         self.imgProfilePic.addGestureRecognizer(tapGest)
+            self.imgProfilePic.image = img
         }
+        
     }
-    
-//    @objc func tapImageView(){
-//        let fullScreenController = FullScreenSlideshowViewController()
-//        let photo:[InputSource] = [imgProfilePic!.image as! InputSource]
-//        fullScreenController.inputs = photo
-//        present(fullScreenController, animated: true, completion: nil)
-//    }
-    
     
     @IBAction func btnUpdatePressed(_ sender: EPButtonGreenButton) {
         
-//        if txtName.validateTextFiled(validationMesage: .invalidEmail) {
-//          if txtView.text.trim().count == 0 {
-//            if txtPhoneNumber.validateTextFiled(validationMesage: .invalidMobile) {
-//                GenericClass.sharedInstance.CallUpdateProfileApi(name: txtName.text!, phone: txtPhoneNumber.text!, address: txtView.text!, picture: imgProfilePic.image!) { (isSuccess) in
-//                    if isSuccess{
-//
-//                    }
-//                }
-//            }
-//          }else{
-//                self.showToast(msg: DEFAULT_ADDRESS_VALID)
-//            }
-//        }
+        if txtName.validateTextFiled(validationMesage: .invalidEmail) {
+            if txtView.text.trim().count > 0 {
+                if txtPhoneNumber.validateTextFiled(validationMesage: .invalidMobile) {
+                    GenericClass.sharedInstance.CallUpdateProfileApi(name: txtName.text!, phone: txtPhoneNumber.text!, address: txtView.text!, picture: imgProfilePic.image!) { (isSuccess, message, dictionary) in
+                        if isSuccess{
+                            if let responseDict = dictionary
+                            {
+                                var dict = responseDict["data"] as! JSONDICTIONARY
+                                dict["access_token"] = UserRootClass.shared.accessToken
+                                dict["email"] = UserRootClass.shared.email
+                                dict["is_confirm"] = UserRootClass.shared.isConfirm
+                                self.getUserData(dict:dict)
+                                if responseDict["message"] != nil{
+                                    self.showToast(msg: responseDict["message"] as! String)
+                                }
+                            }
+                        }
+                    }
+                }
+            }else{
+                self.showToast(msg: DEFAULT_ADDRESS_VALID)
+            }
+        }
     }
     
     
@@ -84,55 +81,113 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
     }
 }
 
+extension AccountSettingsViewController{
+    
+    func UpdateProfile(){
+        txtName.text = kCurrentUser.restaurantName
+        txtView.text = kCurrentUser.restaurantAddress
+        txtPhoneNumber.text = kCurrentUser.restaurantPhone
+        imgProfilePic.sd_setImage(with: URL(string: "\(IMAGE_URL)\(kCurrentUser.restaurantPicture!)"), placeholderImage: RESTUTANT_PLACEHOLDER_IMAGE, options: .highPriority, completed: nil)
+    }
+    
+    func getUserData(dict:JSONDICTIONARY){
+        UserRootClass.shared.parseDict(fromDictionary: dict)
+        UserRootClass.shared.saveToDefaults()
+        self.UpdateProfile()
+        NotificationCenter.default.post(name: NSNotification.Name.init("refreshData"), object: nil)
+    }
+    
+    func getUserProfileDetails(){
+        GenericClass.sharedInstance.CallgetProfileApi(id: kCurrentUser.id, completion: { (isSuccess, message, dictionary) in
+            if isSuccess{
+                if let responseDict = dictionary{
+                    let arr = responseDict["data"] as! NSArray
+                    var dict = arr[0] as! JSONDICTIONARY
+                    dict["access_token"] = UserRootClass.shared.accessToken
+                    dict["email"] = UserRootClass.shared.email
+                    dict["is_confirm"] = UserRootClass.shared.isConfirm
+                    self.getUserData(dict:dict)
+                }
+            }
+        })
+    }
+    
+    func getUserProfileImages(){
+        GenericClass.sharedInstance.CallgetRestuarantImagesApi(id: kCurrentUser.id, completion: { (isSuccess, message, dictionary) in
+            if isSuccess{
+                if let responseDict = dictionary{
+                    if responseDict["data"] != nil {
+                        if let picture = responseDict["data"] as? NSArray
+                        {
+                            for i in 0..<picture.count
+                            {
+                                let pic = picture[i] as! JSONDICTIONARY
+                                self.arrPictureList.add(pic)
+                            }
+                            self.collectionView.reloadData()
+                        }
+                        
+                    }
+                }
+            }
+        })
+    }
+}
+
 extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1//arrRestrutantImage.count+1
+        return self.arrPictureList.count != 0 ? arrPictureList.count+1 : 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AccountSettingImageCell
-//        let data = self.coachList.list[indexPath.item]
-//        cell.imgView.sd_setImage(with: URL(string: "\(IMAGE_URL)\(data.profilePic!)"), placeholderImage: MALE_LIST_PLACEHOLDER_IMAGE, options: .highPriority, completed: nil)//
-//        cell.imgView.image = arrRestrutantImage[indexPath.row] as? String //UIImage(named: "intro\(indexPath.item)")
+        cell.btnAddImg.layer.borderColor = UIColor.clear.cgColor
+        if self.arrPictureList.count == 0{
+            cell.btnAddImg.setTitle("Add Photo", for: .normal)
+            let borderLayer  = GenericClass.sharedInstance.dashedBorderLayerWithColor(color: UIColor.gray.cgColor, view: cell.viewBorder)
+            cell.viewBorder.layer.addSublayer(borderLayer)
+            cnsHeightViewBanners.constant = 100
+        }else{
+            if indexPath.row == arrPictureList.count{
+                cell.btnAddImg.setTitle("Add Photo", for: .normal)
+                cell.viewBorder.frame = CGRect(x: 2, y: 2, width: UIScreen.main.bounds.size.width/3 - 20, height: 76)
+                let borderLayer  = GenericClass.sharedInstance.dashedBorderLayerWithColor(color: UIColor.gray.cgColor, view: cell.viewBorder)
+                cell.viewBorder.layer.addSublayer(borderLayer)
+            }else{
+                let data = self.arrPictureList[indexPath.row] as! JSONDICTIONARY
+                cell.imgView.sd_setImage(with: URL(string: data["picture"] as! String), placeholderImage: RESTUTANT_PLACEHOLDER_IMAGE, options: .highPriority, completed: nil)
+                cell.viewBorder.isHidden = true
+                cell.imgView.layer.cornerRadius = 5.0
+                cell.imgView.clipsToBounds = true
+               cell.contentView.bringSubview(toFront: cell.imgView)
+               cell.btnRemoveImg.isHidden = false
+            }
+            cell.btnRemoveImg.tag = indexPath.row
+        }
+        cell.btnAddImg.imgePick = { (img) in
+            cell.imgView.image = img
+            cell.contentView.bringSubview(toFront: cell.imgView)
+//            GenericClass.sharedInstance.CallAddRestrutantPictureApi(restrutantId: kCurrentUser.id, picture: img, completion: { (isSuccess, message, dictionary) in
+//                if isSuccess{
+//                    if let responseDict = dictionary{
+//                        print(responseDict["data"]!)
+//                        cell.btnRemoveImg.isHidden = false
+//                        self.getUserProfileImages()
+//                    }
+//                }
+//            })
+        }
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.size.width/3 - 16, height: 80)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return pendingImageString.count + 1 // + 1 for last cell
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! AccountSettingImageCell
-//        cell.btnRemoveImg.tag = indexPath.row
-//        cell.btnAddImg.tag = indexPath.row
-//
-//        if indexPath.item == arrRestrutantImage.count {
-////            cell.imageview = //your static image that is shown in last cell
-//                //cell.cancelButton.isHidden = true
-//        }
-//        else{
-////            let img:NSString = pendingImageString[indexPath.item]
-////            cell.editImage.sd_setImageWithURL(NSURL(string: imageApikey + (img as String)))
-////            cell.cancelButton.isHidden = false
-//        }
-//        return cell
-//
-//    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == arrRestrutantImage.count{
-            // update your array with new image file
-        }
-    }
-    
     // cancel button action
-    func buttonClicked(sender: UIButton?) {
-        let tag = sender?.tag
-        // remove object from array and reload collectionview
-    }
+//    func buttonClicked(sender: UIButton?) {
+//        let tag = sender?.tag
+//        // remove object from array and reload collectionview
+//    }
     
 }

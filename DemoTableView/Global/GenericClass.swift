@@ -17,8 +17,10 @@ class GenericClass: BaseViewController {
     //MARK:-  Api methods
     
     func CallSignInApi(email : String,password : String,userType : String,completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
-        ApiController.sharedInstace.loginUser(login: Login.init(email: email, password: password, usertype: userType), completionHandler: { (isResult, message, dictionary) in
-            
+        
+        let deviceId:String = UUID().uuidString
+        print("**********\(deviceId)*************")
+        ApiController.sharedInstace.loginUser(login: Login.init(email: email, password: password, usertype: userType, deviceId: deviceId), completionHandler: { (isResult, message, dictionary) in
             if isResult{
                 completion(true, message, dictionary)
             }else{completion(false, "",nil)}
@@ -28,83 +30,63 @@ class GenericClass: BaseViewController {
     func CallForgotPasswordApi(email : String, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
         
         ApiController.sharedInstace.forgotPassword(forgotPassword: ForgotPassword.init(email: email), completionHandler: { (isResult, message, dictionary) in
-            
-            if isResult
-            {
+            if isResult{
                 completion(true, message, dictionary)
             }else{completion(false, "", nil)}
         })
     }
     
-    func CallUpdateProfileApi(name : String, phone:String, address:String, picture:UIImage, completion: @escaping (_ isSuccess: Bool) -> ()) {
+    
+    func CallgetProfileApi(id : String, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
         
+        ApiController.sharedInstace.getUserProfile(parameters: ["id":id], completionHandler: { (isResult, message, dictionary) in
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, message, dictionary)}
+        })
+    }
+    
+    func CallUpdateProfileApi(name : String, phone:String, address:String, picture:UIImage, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
+
         ApiController.sharedInstace.updateBasicProfile(basicProfile: updateRestaurentProfile.init(name: name, phone: phone, address: address), picture: picture, completionHandler: { (isResult, message, dictionary) in
-            
-            if isResult
-            {
-                completion(true)
-                if let responseDict = dictionary
-                {
-                    if responseDict["message"] != nil
-                    {
-                        self.showToast(msg: responseDict["message"] as! String)
-                    }
-                }
-            }else{completion(false)}
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, message, dictionary)}
         })
     }
     
-    func CallAddRestrutantPictureApi(restrutantId : String, picture:UIImage, completion: @escaping (_ isSuccess: Bool) -> ()) {
+    func CallgetRestuarantImagesApi(id : String, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
         
-        ApiController.sharedInstace.addRestrutantPicture(addPicture: addRestaurentPicture.init(id: restrutantId), picture: picture, completionHandler: { (isResult, message, dictionary) in
-            
-            if isResult
-            {
-                completion(true)
-                if let responseDict = dictionary
-                {
-                    if responseDict["message"] != nil
-                    {
-                        self.showToast(msg: responseDict["message"] as! String)
-                    }
-                }
-            }else{completion(false)}
+        ApiController.sharedInstace.getRestrutantImages(parameters: ["id":id], completionHandler: { (isResult, message, dictionary) in
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, message, dictionary)}
         })
     }
     
-    func CallRemoveRestrutantPictureApi(id : String, picture:UIImage, completion: @escaping (_ isSuccess: Bool) -> ()) {
-        
-        ApiController.sharedInstace.removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture.init(id: id), picture: picture, completionHandler: { (isResult, message, dictionary) in
-            
-            if isResult
-            {
-                completion(true)
-                if let responseDict = dictionary
-                {
-                    if responseDict["message"] != nil
-                    {
-                        self.showToast(msg: responseDict["message"] as! String)
-                    }
-                }
-            }else{completion(false)}
-        })
-    }
-    
-    func CallRestaurentStatusUpdateApi(restaurentId : String, status:String,open:String, completion: @escaping (_ isSuccess: Bool) -> ()) {
+    func CallRestaurentStatusUpdateApi(restaurentId : String, status:String, open:String!, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
         
         ApiController.sharedInstace.restaurentStatusUpdate(restaurentStatus: RestrutantStatus.init(restaurentId: restaurentId, status: status, open: open), completionHandler: { (isResult, message, dictionary) in
-
-            if isResult
-            {
-                completion(true)
-                if let responseDict = dictionary
-                {
-                    if responseDict["message"] != nil
-                    {
-                        self.showToast(msg: responseDict["message"] as! String)
-                    }
-                }
-            }else{completion(false)}
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, "", nil)}
+        })
+    }
+    
+    func CallAddRestrutantPictureApi(restrutantId : String, picture:UIImage, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
+        
+        ApiController.sharedInstace.addRestrutantPicture(addPicture: addRestaurentPicture.init(id: restrutantId), picture: picture, completionHandler: { (isResult, message, dictionary) in
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, message, dictionary)}
+        })
+    }
+    
+    func CallRemoveRestrutantPictureApi(id : String, picture:UIImage, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
+        ApiController.sharedInstace.removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture.init(id: id), picture: picture, completionHandler: { (isResult, message, dictionary) in
+            if isResult{
+                completion(true, message, dictionary)
+            }else{completion(false, message, dictionary)}
         })
     }
     
@@ -244,6 +226,29 @@ class GenericClass: BaseViewController {
     func getProportionalHeight(height:CGFloat) -> CGFloat {
         let screenHeight = Devices.deviceType == .iPhoneX ? Devices.screenHeight - (44 + 34) : Devices.screenHeight
         return ((screenHeight * height) / (2208 / 3))
+    }
+    
+    func dashedBorderLayerWithColor(color:CGColor, view:UIView) -> CAShapeLayer {
+        
+        let  borderLayer = CAShapeLayer()
+        borderLayer.name  = "borderLayer"
+        let frameSize = view.frame.size
+        let shapeRect = CGRect(x:0, y:0, width:frameSize.width, height:frameSize.height)
+        
+        borderLayer.bounds=shapeRect
+        borderLayer.position = CGPoint(x:frameSize.width/2, y:frameSize.height/2)
+        borderLayer.fillColor = UIColor.clear.cgColor
+        borderLayer.strokeColor = color
+        borderLayer.lineWidth=1
+        borderLayer.lineJoin=kCALineJoinRound
+        borderLayer.lineDashPattern = NSArray(array: [NSNumber(value: 8),NSNumber(value:4)]) as? [NSNumber]
+        
+        let path = UIBezierPath.init(roundedRect: shapeRect, cornerRadius: 5)
+        
+        borderLayer.path = path.cgPath
+        
+        return borderLayer
+        
     }
 }
 

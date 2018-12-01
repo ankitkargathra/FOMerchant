@@ -13,14 +13,11 @@ import UIKit
 
 class SLButtonImagePicker: EPAccountSettingButton, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    /*
-    /------Variable Declaration
-   */
     var imagePicker = UIImagePickerController()
     let viewController = UIApplication.shared.delegate?.window??.rootViewController
     var imgePick: ImagePickerResponse!
-//    var stImage = (UIImage) -> Void
-    
+
+
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {

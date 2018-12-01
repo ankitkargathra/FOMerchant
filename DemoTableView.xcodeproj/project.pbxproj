@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		050708542190D5B90030F3AF /* URLClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050708522190D5B90030F3AF /* URLClass.swift */; };
 		050708552190D5B90030F3AF /* ApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050708532190D5B90030F3AF /* ApiController.swift */; };
+		050970F721AFF3FD000F2F7A /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050970F621AFF3FC000F2F7A /* Picture.swift */; };
 		0596C71A2164977300EEF38B /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C7192164977300EEF38B /* SideMenuViewController.swift */; };
 		0596C71C21649DAB00EEF38B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C71B21649DAB00EEF38B /* MainViewController.swift */; };
 		0596C71E2164F7C400EEF38B /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C71D2164F7C400EEF38B /* NotificationListViewController.swift */; };
@@ -77,6 +78,7 @@
 /* Begin PBXFileReference section */
 		050708522190D5B90030F3AF /* URLClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLClass.swift; sourceTree = "<group>"; };
 		050708532190D5B90030F3AF /* ApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiController.swift; sourceTree = "<group>"; };
+		050970F621AFF3FC000F2F7A /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		0540CCE32199AD02007416EE /* KFImageViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KFImageViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0596C7192164977300EEF38B /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		0596C71B21649DAB00EEF38B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				B8FBDB9C214E232D0044D370 /* BaseViewController.swift */,
 				4A26DF722121979F00A5B0A9 /* Constant.swift */,
 				4A26DF7621219C6300A5B0A9 /* GenericClass.swift */,
+				050970F621AFF3FC000F2F7A /* Picture.swift */,
 				05B768B121931E89006B94B3 /* Api */,
 			);
 			path = Global;
@@ -547,6 +550,7 @@
 				05B768C02194E5C8006B94B3 /* GetOrders.swift in Sources */,
 				05D17572218DD66F00DC6C5E /* SendNewNotificationDetailViewController.swift in Sources */,
 				0596C71E2164F7C400EEF38B /* NotificationListViewController.swift in Sources */,
+				050970F721AFF3FD000F2F7A /* Picture.swift in Sources */,
 				4AD1DBC52149AC2D0033B0D8 /* ViewController.swift in Sources */,
 				B8FF446E214D8E0100759E23 /* CustomHeader.swift in Sources */,
 				0596C71C21649DAB00EEF38B /* MainViewController.swift in Sources */,

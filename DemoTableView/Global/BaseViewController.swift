@@ -10,6 +10,7 @@ import UIKit
 import SJSwiftSideMenuController
 import LoadingPlaceholderView
 import MBProgressHUD
+import SDWebImage
 
 class BaseViewController: UIViewController {
     var headerViewDefault: HeaderViewDefault!
@@ -61,6 +62,7 @@ class BaseViewController: UIViewController {
     func setUpSideMenu(isShow:Bool! = false, title:String = ""){
         if isShow {
             SJSwiftSideMenuController.navigator.setNavigationBarHidden(false, animated: true)
+            SJSwiftSideMenuController.navigator.navigationBar.backgroundColor = UIColor.white
             SJSwiftSideMenuController.navigator.topViewController?.navigationItem.title = title
             SJSwiftSideMenuController.enableSwipeGestureWithMenuSide(menuSide: .LEFT)
             if let image : UIImage = UIImage(named: "menu") as UIImage? {
@@ -83,12 +85,13 @@ class BaseViewController: UIViewController {
         self.refresher.endRefreshing()
     }
     func showHUD(str : String = "",showInView : Bool = false,hideLoader : Bool = false){
-        
-        MBProgressHUD.showAdded(to: AppDel.window!,    animated: true)
+        if !hideLoader {
+            MBProgressHUD.showAdded(to: AppDel.window!,    animated: true)
+        }
     }
     
     func hideHUD(){
-        
+        ApiController.sharedInstace.hideLoader = false
         MBProgressHUD.hide(for: AppDel.window!,    animated: true)
     }
     
@@ -230,7 +233,7 @@ class BaseViewController: UIViewController {
             lblText.frame = CGRect(x: 20, y: 10, width: AppDel.window!.frame.width, height: 20.0)
             lblText.textColor = UIColor.white
             view.backgroundColor = UIColor.black
-            view.alpha = 0.7
+            view.alpha = 0.9
             lblText.text = msg
             view.addSubview(lblText)
             AppDel.window?.addSubview(view)

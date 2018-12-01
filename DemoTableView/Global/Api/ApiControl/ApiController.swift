@@ -33,7 +33,7 @@ class ApiController: BaseViewController {
     
     
     
-    //MARK: Login with Email
+    //MARK: ****************
     
     func loginUser(login: Login, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
     {
@@ -46,6 +46,17 @@ class ApiController: BaseViewController {
     func forgotPassword(forgotPassword: ForgotPassword, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
     {
         callWebservice(url: URLClass.kforgotPassword, methodType: .post, parameter: forgotPassword.toJsonDictionary(), encoding: URLEncoding.default, header: false) { (result, message, response) in
+            completionHandler(result, message, response as? JSONDICTIONARY)
+        }
+    }
+    func getUserProfile(parameters: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
+    {
+        callWebservice(url: URLClass.kgetRestaurentProfile, methodType: .post, parameter: parameters, encoding: URLEncoding.default, header: true) { (result, message, response) in
+            completionHandler(result, message, response as? JSONDICTIONARY)
+        }
+    }
+    func getRestrutantImages(parameters: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+        callWebservice(url: URLClass.kgetRestaurentImages, methodType: .post, parameter: parameters, encoding: URLEncoding.default, header: true) { (result, message, response) in
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
@@ -82,11 +93,14 @@ class ApiController: BaseViewController {
     }
     
     func restaurentStatusUpdate(restaurentStatus: RestrutantStatus, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.krestaurentStatusUpdate, methodType: .post, parameter: restaurentStatus.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.krestaurentStatusUpdate, methodType: .post, parameter: restaurentStatus.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
+    
+    //MARK: ****************
+    
     
     func getOrders(getorder: GetOrders, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
         callWebservice(url: URLClass.kgetOrders, methodType: .post, parameter: getorder.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
@@ -172,8 +186,7 @@ class ApiController: BaseViewController {
                 
                 DispatchQueue.main.async {
                     self.hideHUD()
-                    if let data = response.result.value, let statusCode = response.response?.statusCode
-                    {
+                    if let data = response.result.value, let statusCode = response.response?.statusCode{
                         if statusCode == 200
                         {
                             completion(true,"",data)
@@ -187,8 +200,7 @@ class ApiController: BaseViewController {
                             }
                             completion(false,"",nil)
                         }
-                    } else
-                    {
+                    }else{
                         print("Request \(response.request!)")
                         print("Request Params : \(parameter!)")
                         print("URL : \(url)")
@@ -212,7 +224,7 @@ class ApiController: BaseViewController {
             Alamofire.upload(multipartFormData:
                 {
                     (multipartFormData) in
-                    multipartFormData.append(imgData, withName: "picture", fileName: "file.jpeg", mimeType: "image/png")
+                    multipartFormData.append(imgData, withName: "picture[]", fileName: "file.jpeg", mimeType: "image/png")
                     for (key, value) in parameters
                     {
                         multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)

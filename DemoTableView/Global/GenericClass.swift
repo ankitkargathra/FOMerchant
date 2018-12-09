@@ -82,8 +82,8 @@ class GenericClass: BaseViewController {
         })
     }
     
-    func CallRemoveRestrutantPictureApi(id : String, picture:UIImage, completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
-        ApiController.sharedInstace.removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture.init(id: id), picture: picture, completionHandler: { (isResult, message, dictionary) in
+    func CallRemoveRestrutantPictureApi(id : String,  completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
+        ApiController.sharedInstace.removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture.init(id: id), completionHandler: { (isResult, message, dictionary) in
             if isResult{
                 completion(true, message, dictionary)
             }else{completion(false, message, dictionary)}

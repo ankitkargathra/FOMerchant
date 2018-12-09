@@ -9,62 +9,46 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DemoTableView/ViewControllers/iPhone/AccountSettingsViewController.swift"
-            timestampString = "565273791.731464"
+            filePath = "DemoTableView/Global/Api/ApiControl/ApiController.swift"
+            timestampString = "566078529.237282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "callWebservice(url:methodType:parameter:encoding:header:completion:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (__C.UIImage) -&gt; () in DemoTableView.AccountSettingsViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  symbolName = "DemoTableView.ApiController.callWebservice(url: Swift.String, methodType: Alamofire.HTTPMethod, parameter: Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, encoding: Alamofire.ParameterEncoding, header: Swift.Bool, completion: (Swift.Bool, Swift.String, Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/AccountSettingsViewController.swift"
-                  timestampString = "565273791.989476"
+                  urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/Global/Api/ApiControl/ApiController.swift"
+                  timestampString = "566077273.928346"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "44">
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "396">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool, Swift.String, Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;) -&gt; () in closure #1 (__C.UIImage) -&gt; () in DemoTableView.AccountSettingsViewController.collectionView(_: __C.UICollectionView, cellForItemAt: Foundation.IndexPath) -&gt; __C.UICollectionViewCell"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any&gt;) -&gt; () in DemoTableView.ApiController.callWebservice(url: Swift.String, methodType: Alamofire.HTTPMethod, parameter: Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, encoding: Alamofire.ParameterEncoding, header: Swift.Bool, completion: (Swift.Bool, Swift.String, Swift.Optional&lt;Any&gt;) -&gt; ()) -&gt; ()"
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/AccountSettingsViewController.swift"
-                  timestampString = "565273791.993595"
+                  urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/Global/Api/ApiControl/ApiController.swift"
+                  timestampString = "566077273.932272"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "64">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DemoTableView/Global/Api/ApiControl/ApiController.swift"
-            timestampString = "565273869.608184"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "unknown"
-            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

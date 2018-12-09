@@ -38,7 +38,7 @@ class ApiController: BaseViewController {
     func loginUser(login: Login, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
     {
         callWebservice(url: URLClass.ksignin, methodType: .post, parameter: login.toJsonDictionary(), encoding: URLEncoding.default, header: false) { (result, message, response) in
-
+            
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
@@ -74,19 +74,15 @@ class ApiController: BaseViewController {
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
-
-    func addRestrutantPicture(addPicture: addRestaurentPicture,picture : UIImage?, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    {
-        if picture != nil{
-            self.uploadMultipartData(url: URLClass.kaddRestaurentPictures, parameters: addPicture.toJsonDictionary(), imgData: UIImageJPEGRepresentation(picture!, 0.5)!){ (result, message, response) in
-                completionHandler(result, message, response as? JSONDICTIONARY)
-            }
+    
+    func addRestrutantPicture(addPicture: addRestaurentPicture, picture:UIImage, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+        self.uploadMultipartDataInArr(url: URLClass.kaddRestaurentPictures, parameters: addPicture.toJsonDictionary(), picture:[picture]){ (result, message, response) in
+            completionHandler(result, message, response as? JSONDICTIONARY)
             return
         }
     }
     
-    func removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture, picture : UIImage?, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    {
+    func removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
         callWebservice(url: URLClass.kremoveRestaurentPictures, methodType: .post, parameter: RemovePicture.toJsonDictionary(), encoding: JSONEncoding.default, header: true) { (result, message, response) in
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
@@ -100,8 +96,6 @@ class ApiController: BaseViewController {
     }
     
     //MARK: ****************
-    
-    
     func getOrders(getorder: GetOrders, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
         callWebservice(url: URLClass.kgetOrders, methodType: .post, parameter: getorder.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
             
@@ -143,39 +137,39 @@ class ApiController: BaseViewController {
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
-//
-//    func registerUser(register: Register, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-//    {
-//
-//        callWebservice(url: URLClass.kRegister, methodType: .post, parameter: register.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
-//            completionHandler(result, message, response as? JSONDICTIONARY)
-//        }
-//    }
-//
-//
-//    func logoutUser(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-//    {
-//
-//        callWebservice(url: URLClass.kLogOut, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-//            completionHandler(result, message, response as? JSONDICTIONARY)
-//        }
-//    }
-//
-//    func ContactUs(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-//    {
-//        callWebservice(url: URLClass.kContactUs, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-//            completionHandler(result, message, response as? JSONDICTIONARY)
-//        }
-//    }
-//
-//    func UserDetails(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-//    {
-//        callWebservice(url: URLClass.kUserDetails, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-//            completionHandler(result, message, response as? JSONDICTIONARY)
-//        }
-//    }
+    //
+    //    func registerUser(register: Register, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
+    //    {
+    //
+    //        callWebservice(url: URLClass.kRegister, methodType: .post, parameter: register.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+    //            completionHandler(result, message, response as? JSONDICTIONARY)
+    //        }
+    //    }
+    //
+    //
+    //    func logoutUser(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
+    //    {
+    //
+    //        callWebservice(url: URLClass.kLogOut, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
+    //            completionHandler(result, message, response as? JSONDICTIONARY)
+    //        }
+    //    }
+    //
+    //    func ContactUs(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
+    //    {
+    //        callWebservice(url: URLClass.kContactUs, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
+    //            completionHandler(result, message, response as? JSONDICTIONARY)
+    //        }
+    //    }
+    //
+    //    func UserDetails(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
+    //    {
+    //        callWebservice(url: URLClass.kUserDetails, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
+    //            completionHandler(result, message, response as? JSONDICTIONARY)
+    //        }
+    //    }
     
-//MARK: ---------------
+    //MARK: ---------------
     
     func callWebservice(url: String, methodType: HTTPMethod, parameter: JSONDICTIONARY?, encoding: ParameterEncoding, header: Bool = true, completion: @escaping (_ result: Bool, _ message: String, _ returnData: Any?) -> ()) {
         
@@ -204,7 +198,7 @@ class ApiController: BaseViewController {
                         print("Request \(response.request!)")
                         print("Request Params : \(parameter!)")
                         print("URL : \(url)")
-//                        print("Response : \(response.result.value!)")
+                        //                        print("Response : \(response.result.value!)")
                         self.showToast(msg: DEFAULT_ERROR_MESSAGE)
                         completion(false,"",nil)
                     }
@@ -224,7 +218,7 @@ class ApiController: BaseViewController {
             Alamofire.upload(multipartFormData:
                 {
                     (multipartFormData) in
-                    multipartFormData.append(imgData, withName: "picture[]", fileName: "file.jpeg", mimeType: "image/png")
+                    multipartFormData.append(imgData, withName: "picture", fileName: "file.jpeg", mimeType: "image/png")
                     for (key, value) in parameters
                     {
                         multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
@@ -276,6 +270,67 @@ class ApiController: BaseViewController {
         }
         
     }
+    
+    func uploadMultipartDataInArr(url : String,parameters : [String  : Any], picture:[UIImage], completion: @escaping (_ result: Bool, _ message: String, _ returnData: Any?) -> ())
+    {
+        if ReachabilityManual.shared.isConnectedToNetwork() {
+            self.showHUD(showInView: self.showInView,hideLoader: self.hideLoader)
+            Alamofire.upload(multipartFormData:{
+                (multipartFormData) in
+                if let imArr = picture as? [UIImage]{
+                    for img in imArr{
+                        multipartFormData.append(UIImageJPEGRepresentation(img, 0.5)!, withName: "picture[]", fileName: "file.jpeg", mimeType: "image/png")
+                    }
+                }
+                for (key, value) in parameters{
+                    multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+                }
+            }, to:url,headers:UserRootClass.shared.getAuth())
+            { (result) in
+                switch result {
+                case .success(let upload,_,_ ):
+                    upload.uploadProgress(closure: { (progress) in
+                        // print("uploading...")
+                    })
+                    upload.responseString(completionHandler: { response in
+                        
+                        DispatchQueue.main.async {
+                            self.hideHUD()
+                            if let data = response.result.value, let statusCode = response.response?.statusCode
+                            {
+                                if statusCode == 200
+                                {
+                                    completion(true,"",data)
+                                } else
+                                {
+                                    if let dict = data as? JSONDICTIONARY{
+                                        if dict["message"] != nil
+                                        {
+                                            self.showAlert(msg: dict["message"] as! String)
+                                        }
+                                    }
+                                    completion(false,"",nil)
+                                }
+                            } else
+                            {
+                                self.showAlert(msg: DEFAULT_ERROR_MESSAGE)
+                                completion(false,"",nil)
+                            }
+                        }
+                    })
+                case .failure(let encodingError):
+                    print(encodingError)
+                    self.hideHUD()
+                    break
+                }
+            }
+        }else{
+            self.hideHUD()
+            self.showToast(msg: DEFAULT_NO_NETWORK)
+        }
+        
+    }
+    
     func showAlert(msg : String)
     {
         let alert = UIAlertController(title: nil, message: msg, preferredStyle: .alert)

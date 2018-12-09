@@ -23,6 +23,7 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
     
     
     var arrPictureList:NSMutableArray = []
+    var removeButtonIndex:Int!
     
     override func viewDidLoad(){
         setUpSideMenu(isShow: true, title: "Account Settings")
@@ -37,9 +38,9 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
         txtEmail.isEnabled = false
         txtEmail.textColor = EPConstant.Colors.TEXT_GREY_THEME
         txtEmail.text = kCurrentUser.email
-        cnsHeightViewBanners.constant = 100
+        cnsHeightViewBanners.constant = 90
         getUserProfileDetails()
-        getUserProfileImages()
+        getRestarutantImages()
         btnChangePhoto.imgePick = { (img) in
             self.imgProfilePic.image = img
         }
@@ -73,7 +74,16 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
         }
     }
     
-    
+    override func btnYesTapped() {
+        let dict = self.arrPictureList[removeButtonIndex] as! NSDictionary
+        let id = dict["id"] as! String
+        GenericClass.sharedInstance.CallRemoveRestrutantPictureApi(id: id, completion: { (isSuccess, message, dictionary) in
+            if isSuccess{
+                self.arrPictureList.removeAllObjects()
+                self.getRestarutantImages()
+            }
+        })
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -112,7 +122,7 @@ extension AccountSettingsViewController{
         })
     }
     
-    func getUserProfileImages(){
+    func getRestarutantImages(){
         GenericClass.sharedInstance.CallgetRestuarantImagesApi(id: kCurrentUser.id, completion: { (isSuccess, message, dictionary) in
             if isSuccess{
                 if let responseDict = dictionary{
@@ -146,8 +156,10 @@ extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionV
             cell.btnAddImg.setTitle("Add Photo", for: .normal)
             let borderLayer  = GenericClass.sharedInstance.dashedBorderLayerWithColor(color: UIColor.gray.cgColor, view: cell.viewBorder)
             cell.viewBorder.layer.addSublayer(borderLayer)
-            cnsHeightViewBanners.constant = 100
+            cnsHeightViewBanners.constant = 90
         }else{
+            let i = (arrPictureList.count/3)+1
+            cnsHeightViewBanners.constant = CGFloat(90*i)
             if indexPath.row == arrPictureList.count{
                 cell.btnAddImg.setTitle("Add Photo", for: .normal)
                 cell.viewBorder.frame = CGRect(x: 2, y: 2, width: UIScreen.main.bounds.size.width/3 - 20, height: 76)
@@ -159,23 +171,22 @@ extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionV
                 cell.viewBorder.isHidden = true
                 cell.imgView.layer.cornerRadius = 5.0
                 cell.imgView.clipsToBounds = true
-               cell.contentView.bringSubview(toFront: cell.imgView)
-               cell.btnRemoveImg.isHidden = false
+                cell.contentView.bringSubview(toFront: cell.imgView)
+                cell.contentView.bringSubview(toFront: cell.btnRemoveImg)
+                cell.btnRemoveImg.isHidden = false
+                cell.btnRemoveImg.tag = indexPath.row
+                cell.btnRemoveImg.addTarget(self, action: #selector(self.buttonRemoveClicked(sender:)), for: .touchUpInside)
             }
-            cell.btnRemoveImg.tag = indexPath.row
         }
         cell.btnAddImg.imgePick = { (img) in
             cell.imgView.image = img
             cell.contentView.bringSubview(toFront: cell.imgView)
-//            GenericClass.sharedInstance.CallAddRestrutantPictureApi(restrutantId: kCurrentUser.id, picture: img, completion: { (isSuccess, message, dictionary) in
-//                if isSuccess{
-//                    if let responseDict = dictionary{
-//                        print(responseDict["data"]!)
-//                        cell.btnRemoveImg.isHidden = false
-//                        self.getUserProfileImages()
-//                    }
-//                }
-//            })
+            GenericClass.sharedInstance.CallAddRestrutantPictureApi(restrutantId: kCurrentUser.id, picture: img, completion: { (isSuccess, message, dictionary) in
+                if isSuccess{
+                    self.arrPictureList.removeAllObjects()
+                    self.getRestarutantImages()
+                }
+            })
         }
         return cell
     }
@@ -185,9 +196,8 @@ extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionV
     }
     
     // cancel button action
-//    func buttonClicked(sender: UIButton?) {
-//        let tag = sender?.tag
-//        // remove object from array and reload collectionview
-//    }
-    
+    @objc func buttonRemoveClicked(sender: UIButton!) {
+         removeButtonIndex = sender.tag
+        showAlertButtons(message : "Are you sure you want to remove this picture?")
+    }
 }

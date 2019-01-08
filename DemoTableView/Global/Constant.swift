@@ -10,9 +10,16 @@ import Foundation
 import UIKit
 
 public let kAppName                 = "EPOP"
-public let DEFAULT_ERROR_MESSAGE    = "Something went wrong"
+public let DEFAULT_ERROR_MESSAGE    = "Something went wrong, Please try again later."
 public let DEFAULT_NO_NETWORK       = "The Internet conections appear to be offline."
 public let DEFAULT_ADDRESS_VALID    = "Please enter Address"
+public let DEFAULT_NO_MESSAGE       = "Please enter message"
+public let DEFAULT_NO_TOPIC         = "Please enter Topic"
+let DATE_FORMAT                     = "MMM d, yyyy"
+let DATE_FORMAT_NOTI_HEAD           = "MMMM, yyyy"
+let DATE_FORMAT_NOTI_OFFER          = "MMM d, yyyy HH:mm a"
+
+
 
 let AppDel               = UIApplication.shared.delegate as! AppDelegate
 let kPresentedViewHeight = UIScreen.main.bounds.size.height
@@ -105,12 +112,13 @@ struct EPConstant {
     
     struct Colors {
 
-    static let ORANGE_COLOR_THEME : UIColor  = UIColor(red: 255/255, green: 126/255, blue: 53/255, alpha: 1)
-    static let GREEN_COLOR_THEME : UIColor   = UIColor(red: 1/255, green: 180/255, blue: 95/255, alpha: 1)
-    static let BLACK_COLOR_THEME : UIColor   = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    static let RED_COLOR_THEME : UIColor     = UIColor(red: 255/255, green: 13/255, blue: 36/255, alpha: 1)
-    static let GREY_COLOR_THEME : UIColor    = UIColor(red: 96/255, green: 106/255, blue: 116/255, alpha: 1)
-    static let TEXT_GREY_THEME : UIColor    = UIColor(red: 115/255, green: 115/255, blue: 115/255, alpha: 1)
+    static let ORANGE_COLOR_THEME : UIColor      = UIColor(red: 255/255, green: 126/255, blue: 53/255, alpha: 1)
+    static let GREEN_COLOR_THEME : UIColor       = UIColor(red: 1/255, green: 180/255, blue: 95/255, alpha: 1)
+    static let BLACK_COLOR_THEME : UIColor       = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+    static let RED_COLOR_THEME : UIColor         = UIColor(red: 255/255, green: 13/255, blue: 36/255, alpha: 1)
+    static let GREY_COLOR_THEME : UIColor        = UIColor(red: 96/255, green: 106/255, blue: 116/255, alpha: 1)
+    static let TEXT_GREY_THEME : UIColor         = UIColor(red: 115/255, green: 115/255, blue: 115/255, alpha: 1)
+    static let TEXT_VIEW_GREY_THEME : UIColor    = UIColor(red: 188/255, green: 193/255, blue: 198/255, alpha: 1)
     }
     
     struct Keys {
@@ -123,6 +131,7 @@ struct EPConstant {
         static let MainStoryboard                  = UIStoryboard(name: "Main", bundle: nil)
         static let CardDetail                      = UIStoryboard(name: "CardDetail", bundle: nil)
         static let NotificationSummary             = UIStoryboard(name: "NotificationSummary", bundle: nil)
+        static let HelpSupport                     = UIStoryboard(name: "HelpAndSupportVC", bundle: nil)
         static let AuthenticationStoryboard_ipad   = UIStoryboard(name: "Authentication_iPad", bundle: nil)
     }
     
@@ -145,6 +154,7 @@ struct EPConstant {
        static let kOtherFromSideMenuViewController              = "OtherFromSideMenuViewController"
        static let kCardDetailViewController                     = "CardDetailViewController"
        static let kNotificationSummaryViewController            = "NotificationSummaryViewController"
+       static let kHelpSupportViewController                    = "HelpAndSupportVC"
         //ipad
        static let kiPadLoginViewController                      = "iPadLoginViewController"
     }
@@ -155,6 +165,7 @@ struct EPConstant {
         static let password     = "password"
         static let usertype     = "usertype"
         static let deviceId     = "device_id"
+        static let deviceToken     = "fcm_token"
     }
     struct UpdateProfileKey
     {
@@ -195,6 +206,6 @@ struct EPConstant {
     }
     struct LogoutKey
     {
-        static let userId    = "user_id"
+        static let deviceId    = "device_id"
     }
 }

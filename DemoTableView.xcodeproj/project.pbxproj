@@ -10,10 +10,16 @@
 		050708542190D5B90030F3AF /* URLClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050708522190D5B90030F3AF /* URLClass.swift */; };
 		050708552190D5B90030F3AF /* ApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050708532190D5B90030F3AF /* ApiController.swift */; };
 		050970F721AFF3FD000F2F7A /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050970F621AFF3FC000F2F7A /* Picture.swift */; };
+		050CE5B221C2F12D00A54714 /* RequestListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050CE5AF21C2F12C00A54714 /* RequestListData.swift */; };
+		050CE5B321C2F12D00A54714 /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050CE5B021C2F12C00A54714 /* OrderList.swift */; };
+		050CE5B421C2F12D00A54714 /* RequestListRootClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050CE5B121C2F12D00A54714 /* RequestListRootClass.swift */; };
+		05530E3421D49FB4002246C4 /* HelpAndSupportVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05530E3321D49FB4002246C4 /* HelpAndSupportVC.storyboard */; };
+		05530E3621D4A9B4002246C4 /* HelpAndSupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05530E3521D4A9B4002246C4 /* HelpAndSupportViewController.swift */; };
 		0596C71A2164977300EEF38B /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C7192164977300EEF38B /* SideMenuViewController.swift */; };
 		0596C71C21649DAB00EEF38B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C71B21649DAB00EEF38B /* MainViewController.swift */; };
 		0596C71E2164F7C400EEF38B /* NotificationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C71D2164F7C400EEF38B /* NotificationListViewController.swift */; };
 		0596C72021652D2300EEF38B /* NewNotificationViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0596C71F21652D2300EEF38B /* NewNotificationViewcontroller.swift */; };
+		059CF48921D3875A00B2164C /* NotificationRootClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059CF48821D3875A00B2164C /* NotificationRootClass.swift */; };
 		05A0A5972195E553000ED49D /* SLButtonImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A5962195E553000ED49D /* SLButtonImagePicker.swift */; };
 		05B57AAD2166ADD400D0C782 /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B57AAC2166ADD400D0C782 /* AccountSettingsViewController.swift */; };
 		05B768B02192E4E7006B94B3 /* UserRootClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B768AF2192E4E7006B94B3 /* UserRootClass.swift */; };
@@ -79,11 +85,17 @@
 		050708522190D5B90030F3AF /* URLClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLClass.swift; sourceTree = "<group>"; };
 		050708532190D5B90030F3AF /* ApiController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiController.swift; sourceTree = "<group>"; };
 		050970F621AFF3FC000F2F7A /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		050CE5AF21C2F12C00A54714 /* RequestListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestListData.swift; sourceTree = "<group>"; };
+		050CE5B021C2F12C00A54714 /* OrderList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
+		050CE5B121C2F12D00A54714 /* RequestListRootClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestListRootClass.swift; sourceTree = "<group>"; };
 		0540CCE32199AD02007416EE /* KFImageViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KFImageViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		05530E3321D49FB4002246C4 /* HelpAndSupportVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HelpAndSupportVC.storyboard; sourceTree = "<group>"; };
+		05530E3521D4A9B4002246C4 /* HelpAndSupportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpAndSupportViewController.swift; sourceTree = "<group>"; };
 		0596C7192164977300EEF38B /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		0596C71B21649DAB00EEF38B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0596C71D2164F7C400EEF38B /* NotificationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationListViewController.swift; sourceTree = "<group>"; };
 		0596C71F21652D2300EEF38B /* NewNotificationViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewNotificationViewcontroller.swift; sourceTree = "<group>"; };
+		059CF48821D3875A00B2164C /* NotificationRootClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationRootClass.swift; sourceTree = "<group>"; };
 		05A0A5962195E553000ED49D /* SLButtonImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLButtonImagePicker.swift; sourceTree = "<group>"; };
 		05B57AAC2166ADD400D0C782 /* AccountSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewController.swift; sourceTree = "<group>"; };
 		05B768AF2192E4E7006B94B3 /* UserRootClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRootClass.swift; sourceTree = "<group>"; };
@@ -165,6 +177,10 @@
 			isa = PBXGroup;
 			children = (
 				05B768AF2192E4E7006B94B3 /* UserRootClass.swift */,
+				050CE5B021C2F12C00A54714 /* OrderList.swift */,
+				050CE5AF21C2F12C00A54714 /* RequestListData.swift */,
+				050CE5B121C2F12D00A54714 /* RequestListRootClass.swift */,
+				059CF48821D3875A00B2164C /* NotificationRootClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,6 +192,7 @@
 				4AAE8D692146FF780093889C /* Authentication.storyboard */,
 				05F2C885218EF50300ADD605 /* CardDetail.storyboard */,
 				05F2C881218EF32000ADD605 /* NotificationSummary.storyboard */,
+				05530E3321D49FB4002246C4 /* HelpAndSupportVC.storyboard */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -384,6 +401,7 @@
 				0596C71F21652D2300EEF38B /* NewNotificationViewcontroller.swift */,
 				05D17571218DD66F00DC6C5E /* SendNewNotificationDetailViewController.swift */,
 				05D17573218E36D200DC6C5E /* OtherFromSideMenuViewController.swift */,
+				05530E3521D4A9B4002246C4 /* HelpAndSupportViewController.swift */,
 				05F2C887218EF5F000ADD605 /* CardDetailViewController.swift */,
 				05F2C889218EF70400ADD605 /* NotificationSummaryViewController.swift */,
 			);
@@ -466,6 +484,7 @@
 				05F16FDF21690C660057D293 /* TabView.xib in Resources */,
 				05F2C882218EF32000ADD605 /* NotificationSummary.storyboard in Resources */,
 				B8FBDB9B214E19470044D370 /* CustomInfoView.xib in Resources */,
+				05530E3421D49FB4002246C4 /* HelpAndSupportVC.storyboard in Resources */,
 				4A268107211EFA0F0044F5CA /* LaunchScreen.storyboard in Resources */,
 				4A268104211EFA0F0044F5CA /* Assets.xcassets in Resources */,
 				B80A33382152D98B00DD058C /* Authentication_iPad.storyboard in Resources */,
@@ -506,26 +525,28 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DemoTableView/Pods-DemoTableView-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/KFImageViewer/KFImageViewer.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LoadingPlaceholderView/LoadingPlaceholderView.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SCPageControl/SCPageControl.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SJSwiftSideMenuController/SJSwiftSideMenuController.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KFImageViewer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LoadingPlaceholderView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCPageControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SJSwiftSideMenuController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -539,14 +560,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050CE5B421C2F12D00A54714 /* RequestListRootClass.swift in Sources */,
 				B8A9091D21596C320006B4C2 /* EPLabel.swift in Sources */,
 				05B768C22194F122006B94B3 /* Notifications.swift in Sources */,
 				0596C72021652D2300EEF38B /* NewNotificationViewcontroller.swift in Sources */,
 				B81A653F2156AD330010CC4C /* Devices.swift in Sources */,
+				05530E3621D4A9B4002246C4 /* HelpAndSupportViewController.swift in Sources */,
 				05D17574218E36D200DC6C5E /* OtherFromSideMenuViewController.swift in Sources */,
 				847B40AA2150CA1C003D3993 /* LoginViewController.swift in Sources */,
 				847B40A82150C647003D3993 /* SLTextField.swift in Sources */,
 				847B40AD21510F98003D3993 /* ForgotPasswordViewController.swift in Sources */,
+				050CE5B321C2F12D00A54714 /* OrderList.swift in Sources */,
 				05B768C02194E5C8006B94B3 /* GetOrders.swift in Sources */,
 				05D17572218DD66F00DC6C5E /* SendNewNotificationDetailViewController.swift in Sources */,
 				0596C71E2164F7C400EEF38B /* NotificationListViewController.swift in Sources */,
@@ -565,6 +589,7 @@
 				B8FBDB9F214E6F7B0044D370 /* EPImageView.swift in Sources */,
 				4A26DF732121979F00A5B0A9 /* Constant.swift in Sources */,
 				05B768B321931EA7006B94B3 /* Login.swift in Sources */,
+				059CF48921D3875A00B2164C /* NotificationRootClass.swift in Sources */,
 				B8FF4474214DC4FE00759E23 /* AlertWithButtons.swift in Sources */,
 				4A26DF7521219B2B00A5B0A9 /* EPDate.swift in Sources */,
 				05B768B5219323A5006B94B3 /* FogotPassword.swift in Sources */,
@@ -578,6 +603,7 @@
 				050708542190D5B90030F3AF /* URLClass.swift in Sources */,
 				4A268113211F08580044F5CA /* TextField.swift in Sources */,
 				05B768B8219333D4006B94B3 /* UpdateRestaurentProfile.swift in Sources */,
+				050CE5B221C2F12D00A54714 /* RequestListData.swift in Sources */,
 				05F16FD9216906C90057D293 /* PendingOrderViewController.swift in Sources */,
 				4A86DD752122A1FF003B455F /* EPView.swift in Sources */,
 				4AD1DBC12149A4040033B0D8 /* Cell.swift in Sources */,

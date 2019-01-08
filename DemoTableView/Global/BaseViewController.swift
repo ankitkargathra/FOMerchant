@@ -86,13 +86,13 @@ class BaseViewController: UIViewController {
     }
     func showHUD(str : String = "",showInView : Bool = false,hideLoader : Bool = false){
         if !hideLoader {
-            MBProgressHUD.showAdded(to: AppDel.window!,    animated: true)
+            MBProgressHUD.showAdded(to: AppDel.window!, animated: true)
         }
     }
     
     func hideHUD(){
         ApiController.sharedInstace.hideLoader = false
-        MBProgressHUD.hide(for: AppDel.window!,    animated: true)
+        MBProgressHUD.hide(for: AppDel.window!, animated: true)
     }
     
     func showAlertButtons(message : String)
@@ -182,11 +182,16 @@ class BaseViewController: UIViewController {
         self.view.addSubview(headerViewDefault)
     }
     
-    func loadHeaderViewBackButton(title : String, subTitle: String = "")
+    func loadHeaderViewBackButton(title : String, subTitle: String = "", Date:String = "", ImgDropDown:Bool = false)
     {
         headerViewButtons = .fromNib() as HeaderViewBackButton
         headerViewButtons.lblTitle.text = title
         headerViewButtons.lblSubTitle.text = subTitle
+        headerViewButtons.lblDate.text = Date
+        if ImgDropDown{
+            headerViewButtons.lblDate.isHidden = false
+            headerViewButtons.imgDropDown.isHidden = false
+        }
         var y : CGFloat = 0.0
         var subTitleHeight : CGFloat = 0.0
         

@@ -69,12 +69,23 @@ class SideMenuViewController: BaseViewController {
     
     @IBAction func othersFromSidemenuBtnPressed(_ sender: UIButton) {
         
-        let vc = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kOtherFromSideMenuViewController) as! OtherFromSideMenuViewController
-        SJSwiftSideMenuController.hideLeftMenu()
-        if let buttonTitle = sender.title(for: .normal) {
-            vc.strHeader = buttonTitle
+        if sender.titleLabel?.text == "Help & Support"{
+            
+            let vc = EPConstant.Storyboard.HelpSupport.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kHelpSupportViewController) as! HelpAndSupportViewController
+            SJSwiftSideMenuController.hideLeftMenu()
+            vc.strHeader = sender.titleLabel?.text
+            SJSwiftSideMenuController.pushViewController(vc, animated: false)
+            
+        }else{
+         
+            let vc = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kOtherFromSideMenuViewController) as! OtherFromSideMenuViewController
+            SJSwiftSideMenuController.hideLeftMenu()
+            if let buttonTitle = sender.title(for: .normal) {
+                vc.strHeader = buttonTitle
+            }
+            SJSwiftSideMenuController.pushViewController(vc, animated: false)
+            
         }
-        SJSwiftSideMenuController.pushViewController(vc, animated: false)
     }
     
     @IBAction func btnLogoutPressed(_ sender: UIButton) {
@@ -84,12 +95,18 @@ class SideMenuViewController: BaseViewController {
     }
     
     override func btnYesTapped() {
-        
-        UserDefaults.standard.set(nil, forKey: "userData")
-        UserDefaults.standard.synchronize()
-        AppDel.checkUserStatus()
-        
+
+        let deviceId:String = UUID().uuidString
+        self.hideAlertButtons()
+        GenericClass.sharedInstance.LogoutApi(deviceId: deviceId) { (isSuccess,message,dictionary)  in
+            if isSuccess{
+                UserDefaults.standard.set(nil, forKey: "userData")
+                UserDefaults.standard.synchronize()
+                AppDel.checkUserStatus()
+            }
+        }
     }
+    
     @IBAction func switchRestaurantStatusPressed(_ sender: UISwitch) {
         UIApplication.shared.beginIgnoringInteractionEvents()
         var status:String!

@@ -50,16 +50,16 @@ class SendVoucer {
 }
 class Logout {
     
-    var userId:String!
+    var deviceId:String!
     
-    init(userId: String) {
-        self.userId = userId
+    init(deviceId: String) {
+        self.deviceId = deviceId
     }
     
     func toJsonDictionary() -> JSONDICTIONARY {
         
         var dict: JSONDICTIONARY = [:]
-        if let userId = userId { dict[EPConstant.LogoutKey.userId] = userId }
+        if let deviceId = deviceId { dict[EPConstant.LogoutKey.deviceId] = deviceId }
         return dict
     }
 }

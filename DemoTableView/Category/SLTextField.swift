@@ -217,7 +217,7 @@ import UIKit
             view.frame = CGRect(x: 0, y: AppDel.window!.frame.height - 40, width: AppDel.window!.frame.width, height: 40)
             lblText.textColor = UIColor.white
             view.backgroundColor = UIColor.black
-            view.alpha = 0.7
+            view.alpha = 0.9
             lblText.text = msg
             view.addSubview(lblText)
             AppDel.window?.addSubview(view)

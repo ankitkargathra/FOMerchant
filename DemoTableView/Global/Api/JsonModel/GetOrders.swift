@@ -33,15 +33,18 @@ class GetOrders {
 class GetOrdersDetails {
     
     var orderId:String!
+    var restaurentId:String!
     
-    init(orderId: String) {
+    init(orderId: String, restaurentId:String) {
         self.orderId = orderId
+        self.restaurentId = restaurentId
     }
     
     func toJsonDictionary() -> JSONDICTIONARY {
         
         var dict: JSONDICTIONARY = [:]
         if let orderId = orderId { dict[EPConstant.GetOrderKey.orderId] = orderId }
+        if let restaurentId = restaurentId { dict[EPConstant.GetOrderKey.restaurentId] = restaurentId }
         return dict
     }
 }

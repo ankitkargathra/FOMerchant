@@ -9,21 +9,27 @@
 import UIKit
 import IQKeyboardManagerSwift
 import SJSwiftSideMenuController
+import UserNotificationsUI
+import UserNotifications
+import Firebase
+import FirebaseMessaging
+
 
 
 let isLive : Bool! = false
 var kCurrentUser : UserRootClass!
+var FCM_TOKEN = ""
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,MessagingDelegate {
     
     var window: UIWindow? //= WallpaperWindow()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        sleep(2)
         IQKeyboardManager.shared.enable = true
         checkUserStatus()
+        configureForPushNotification(application: application)
         // Override point for customization after application launch.
         return true
     }
@@ -93,6 +99,84 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    //MARK: - Push Notification Delegate -
+    
+    func configureForPushNotification(application : UIApplication){
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+    }
+    
+    func navigateTo(isNavigate : Bool = false, isChatNotification:Bool = false) {
+        
+        if let _ = kCurrentUser.id {
+            let rootVC = self.window?.rootViewController
+            var navVc : UINavigationController?
+        }
+    }
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void){
+        let data = notification.request.content.userInfo
+          print(data)
+        completionHandler([.alert,.sound,.badge]) // show notification when app is active
+        navigateTo(isNavigate: false)
+        
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
+    {
+        let data = response.notification.request.content.userInfo
+        print(data)
+//        if let sessionId = data[AnyHashable("sessionId")] as? String{
+//            self.sessionId = sessionId
+//            navigateTo(isNavigate: true)
+//            return
+//        }
+        navigateTo(isNavigate: true, isChatNotification: true)
+        
+    }
+    
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
+    {
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    //    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    //    {
+    //        print(userInfo as! JSONDICTIONARY)
+    //        if UIApplication.shared.applicationState == .active {
+    //            print("TESTED ***** FOREGROUND **** TESTED")
+    //        }else{
+    //            print("TESTED ***** BACKGROUND **** TESTED")
+    //        }
+    //    }
+    
+    
+    //MARK: - Messaging Delegate -
+
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        FCM_TOKEN = fcmToken
+    }
+    
+    public func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage){
+        print(remoteMessage.appData)
+    }
     
 }
 

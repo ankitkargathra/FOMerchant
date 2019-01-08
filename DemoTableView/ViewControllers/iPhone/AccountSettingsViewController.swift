@@ -21,7 +21,7 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imgProfilePic: EPImageView!
     
-    
+    var textViewPlaceholderAddress = "Address"
     var arrPictureList:NSMutableArray = []
     var removeButtonIndex:Int!
     
@@ -38,19 +38,20 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
         txtEmail.isEnabled = false
         txtEmail.textColor = EPConstant.Colors.TEXT_GREY_THEME
         txtEmail.text = kCurrentUser.email
+        txtView.text = textViewPlaceholderAddress
+        txtView.textColor = EPConstant.Colors.TEXT_VIEW_GREY_THEME
         cnsHeightViewBanners.constant = 90
         getUserProfileDetails()
         getRestarutantImages()
         btnChangePhoto.imgePick = { (img) in
             self.imgProfilePic.image = img
         }
-        
     }
     
     @IBAction func btnUpdatePressed(_ sender: EPButtonGreenButton) {
         
         if txtName.validateTextFiled(validationMesage: .invalidEmail) {
-            if txtView.text.trim().count > 0 {
+            if txtView.text.trim().count > 0 && txtView.text.trim() != textViewPlaceholderAddress{
                 if txtPhoneNumber.validateTextFiled(validationMesage: .invalidMobile) {
                     GenericClass.sharedInstance.CallUpdateProfileApi(name: txtName.text!, phone: txtPhoneNumber.text!, address: txtView.text!, picture: imgProfilePic.image!) { (isSuccess, message, dictionary) in
                         if isSuccess{
@@ -77,10 +78,20 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
     override func btnYesTapped() {
         let dict = self.arrPictureList[removeButtonIndex] as! NSDictionary
         let id = dict["id"] as! String
+        self.hideAlertButtons()
         GenericClass.sharedInstance.CallRemoveRestrutantPictureApi(id: id, completion: { (isSuccess, message, dictionary) in
             if isSuccess{
-                self.arrPictureList.removeAllObjects()
-                self.getRestarutantImages()
+                if let responseDict = dictionary{
+                    if responseDict["status"] != nil{
+                        let status = responseDict["status"] as! String
+                        if status == "200"{
+                            self.arrPictureList.removeObject(at: self.removeButtonIndex)
+                            self.collectionView.reloadData()
+                        }else{
+                            self.showToast(msg: responseDict["message"] as! String)
+                        }
+                    }
+                }
             }
         })
     }
@@ -95,7 +106,7 @@ extension AccountSettingsViewController{
     
     func UpdateProfile(){
         txtName.text = kCurrentUser.restaurantName
-        txtView.text = kCurrentUser.restaurantAddress
+        txtView.text = txtView.text.trim() == textViewPlaceholderAddress ? textViewPlaceholderAddress : kCurrentUser.restaurantAddress
         txtPhoneNumber.text = kCurrentUser.restaurantPhone
         imgProfilePic.sd_setImage(with: URL(string: "\(IMAGE_URL)\(kCurrentUser.restaurantPicture!)"), placeholderImage: RESTUTANT_PLACEHOLDER_IMAGE, options: .highPriority, completed: nil)
     }
@@ -136,7 +147,6 @@ extension AccountSettingsViewController{
                             }
                             self.collectionView.reloadData()
                         }
-                        
                     }
                 }
             }
@@ -161,10 +171,14 @@ extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionV
             let i = (arrPictureList.count/3)+1
             cnsHeightViewBanners.constant = CGFloat(90*i)
             if indexPath.row == arrPictureList.count{
+                cell.viewBorder.isHidden = false
+                cell.imgView.image = nil
                 cell.btnAddImg.setTitle("Add Photo", for: .normal)
                 cell.viewBorder.frame = CGRect(x: 2, y: 2, width: UIScreen.main.bounds.size.width/3 - 20, height: 76)
                 let borderLayer  = GenericClass.sharedInstance.dashedBorderLayerWithColor(color: UIColor.gray.cgColor, view: cell.viewBorder)
                 cell.viewBorder.layer.addSublayer(borderLayer)
+                cell.contentView.bringSubview(toFront: cell.viewBorder)
+                cell.btnRemoveImg.isHidden = true
             }else{
                 let data = self.arrPictureList[indexPath.row] as! JSONDICTIONARY
                 cell.imgView.sd_setImage(with: URL(string: data["picture"] as! String), placeholderImage: RESTUTANT_PLACEHOLDER_IMAGE, options: .highPriority, completed: nil)
@@ -197,7 +211,26 @@ extension AccountSettingsViewController: UICollectionViewDelegate, UICollectionV
     
     // cancel button action
     @objc func buttonRemoveClicked(sender: UIButton!) {
-         removeButtonIndex = sender.tag
+        removeButtonIndex = sender.tag
         showAlertButtons(message : "Are you sure you want to remove this picture?")
+    }
+}
+extension AccountSettingsViewController:UITextViewDelegate{
+    
+    func textViewDidBeginEditing(_ textView: UITextView){
+        if textView == txtView{
+            if textView.text.trim() == textViewPlaceholderAddress{
+                textView.text = ""
+                textView.textColor = .black
+            }
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView){
+        if textView == txtView{
+            if textView.text.trim() == ""{
+                textView.text = textViewPlaceholderAddress
+                textView.textColor = EPConstant.Colors.TEXT_VIEW_GREY_THEME
+            }
+        }
     }
 }

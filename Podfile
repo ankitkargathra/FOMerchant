@@ -11,8 +11,11 @@ target 'DemoTableView' do
     pod 'Alamofire'
     pod 'MBProgressHUD'
     pod 'SDWebImage'
-    pod 'KFImageViewer', '~> 1.0.0'
-    pod "KFImageViewer/Kingfisher"
+#    pod 'KFImageViewer', '~> 1.0.0'
+#    pod "KFImageViewer/Kingfisher"
+    pod 'Firebase/Core'
+    pod 'Firebase/Messaging'
+    #pod ‘Firebase/Messaging’
   use_frameworks!
   # Pods for DemoTableView
 

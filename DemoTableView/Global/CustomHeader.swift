@@ -47,7 +47,8 @@ class HeaderViewDefault: UIView{
 class HeaderViewBackButton : HeaderViewDefault{
     
     @IBOutlet var lblSubTitle : UILabel!
-    
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var imgDropDown: UIImageView!
 }
 
 class TabView : UIView{
@@ -57,6 +58,9 @@ class TabView : UIView{
     @IBOutlet var btn1 : UIButton!
     @IBOutlet var btn2 : UIButton!
     @IBOutlet var underlineView : UIView!
+    @IBOutlet weak var lblRequestListCount: UILabel!
+    @IBOutlet weak var lblPendingListCount: UILabel!
+    
     var delegate : TabViewViewActionsProtocol?
     
     override func awakeFromNib() {

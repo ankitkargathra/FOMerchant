@@ -10,6 +10,12 @@ import UIKit
 
 class CardDetailViewController: BaseViewController{
 
+    
+    @IBOutlet weak var txtCardNumber: RaisePlaceholder!
+    @IBOutlet weak var txtExpDate: RaisePlaceholder!
+    @IBOutlet weak var txtCVV: RaisePlaceholder!
+    @IBOutlet weak var txtNameOnCard: RaisePlaceholder!
+    
     override func viewDidLoad(){
         setUpSideMenu(isShow: false)
         loadHeaderViewBackButton(title: "Pay for Notification",subTitle: "200 Notification, for $25")

@@ -12,19 +12,20 @@ class NotificationListViewController: BaseViewController {
 
     @IBOutlet weak var tblViewNotiList: UITableView!
     
+    var notificationListObj = NotificationListRootClass()
+    var attrs = [
+        NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13.0),
+        NSAttributedStringKey.foregroundColor : UIColor.black,
+        NSAttributedStringKey.underlineStyle : 1] as [NSAttributedStringKey : Any]
     
     override func viewDidLoad(){
         setUpSideMenu(isShow: true,title:"Send Notifications")
         super.viewDidLoad()
-//        tblViewNotiList.dataSource = self
-//        tblViewNotiList.delegate = self
+        GetNotificationList()
+        self.tblViewNotiList.rowHeight = 400.0
+        self.tblViewNotiList.estimatedRowHeight = 400.0
         // Do any additional setup after loading the view.
     }
-
-    func setupTopbar(){
-//        SJSwiftSideMenuController.navigator.setNavigationBarHidden(true, animated: true)
-    }
-    
     
     @IBAction func btnSendNewNotiPressed(_ sender: EPButton){
 
@@ -39,29 +40,53 @@ class NotificationListViewController: BaseViewController {
     }
 }
 
+extension NotificationListViewController{
+    func GetNotificationList(){
+        GenericClass.sharedInstance.CallGetRestaurentNotificationListApi(restaurentId: kCurrentUser.id!){ (isSuccess, message, dictionary) in
+            if isSuccess{
+                if let responseDict = dictionary{
+                    self.notificationListObj.ParseDict(fromDictionary: responseDict["data"] as! [JSONDICTIONARY])
+                        self.tblViewNotiList.reloadData()
+                }
+            }
+        }
+    }
+}
+
 extension NotificationListViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.notificationListObj.data != nil ? self.notificationListObj.data.count : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let idstr = "cell"
-        var cell : UITableViewCell! = tableView.dequeueReusableCell(withIdentifier: idstr)!
+        var cell : NotificationListCell! = tblViewNotiList.dequeueReusableCell(withIdentifier: idstr) as? NotificationListCell
         if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: idstr)
+            cell = NotificationListCell(style: .default, reuseIdentifier: idstr)
         }
+        let data = self.notificationListObj.data[indexPath.row]
+        cell.lblDiscountAmount.text = data.voucherName
+        cell.lblDescription.text = data.notification
+        cell.lblDate.text = "Sent on \(GenericClass.getFormattedDateTime(secondss: Double(data.createdAt)!, NotificationHeader:true))"
+        cell.lblValidDate.text = "Offer valid till \(GenericClass.getFormattedDateTime(secondss: Double(data.endDate)!, NotificationOffer:true))"
+        let buttonTitleStr = NSMutableAttributedString(string:"sent to \(data.userSent!)(\(data.sentTo!))", attributes:attrs)
+        let attributedString = NSMutableAttributedString(string:"")
+        attributedString.append(buttonTitleStr)
+        cell.btnUserType.setAttributedTitle(attributedString, for: .normal)
         cell.selectionStyle = .none
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        return UITableViewAutomaticDimension
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        return 190
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return UITableViewAutomaticDimension
         
     }
 }

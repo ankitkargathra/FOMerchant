@@ -23,7 +23,7 @@ class Login {
         self.password = password
         self.usertype = usertype
         self.deviceId = deviceId
-//        self.deviceToken = FCM_TOKEN
+        self.deviceToken = FCM_TOKEN
     }
     
     func toJsonDictionary() -> JSONDICTIONARY {
@@ -34,7 +34,7 @@ class Login {
         if let password = password { dict[EPConstant.LoginKey.password] = password }
         if let usertype = usertype { dict[EPConstant.LoginKey.usertype] = usertype }
         if let deviceId = deviceId { dict[EPConstant.LoginKey.deviceId] = deviceId }
-//        if let deviceToken = deviceToken { dict[EPConstant.LoginKey.deviceToken] = deviceToken }
+        if let deviceToken = deviceToken { dict[EPConstant.LoginKey.deviceToken] = deviceToken }
         return dict
     }
 }

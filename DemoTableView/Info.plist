@@ -19,9 +19,13 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>8</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>EPOP needs access to your camera so you can add new photos to your profile &amp; restrutant collection.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>EPOP needs access to your photos so you can add new photos to your profile &amp; restrutant collection.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AvenirNextLTPro-Medium.otf</string>
@@ -44,9 +48,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>EPOP needs access to your camera so you can add new photos to your profile &amp; restrutant collection.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>EPOP needs access to your photos so you can add new photos to your profile &amp; restrutant collection.</string>
 </dict>
 </plist>

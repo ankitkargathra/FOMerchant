@@ -24,8 +24,8 @@ class SendNewNotificationDetailViewController: BaseViewController {
         loadHeaderViewBackButton(title: "Send a new notification")
         self.headerViewButtons.btnMenu.setImage(#imageLiteral(resourceName: "back_black"), for: .normal)
         super.viewDidLoad()
-        arr = ["Everyone", "User only", "Existing user only"]
-        arrVoucer = ["20% OFF", "50% OFF", "10% OFF"]
+        arr = ["Everyone", "New customers only", "Existing customers only"]
+        self.getVouchers()
         tblViewNotificationDetails.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
@@ -33,10 +33,28 @@ class SendNewNotificationDetailViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
 }
+extension SendNewNotificationDetailViewController{
+    func getVouchers(){
+        GenericClass.sharedInstance.CallGetRestaurentVouchersListApi(restaurentId: kCurrentUser.id!){ (isSuccess, message, dictionary) in
+            if isSuccess{
+                if let responseDict = dictionary{
+                    for dic in responseDict["data"] as! [JSONDICTIONARY]{
+                        self.arrVoucer.append(dic["discount"] as! String + "%" + " OFF")
+                    }
+                    self.tblViewNotificationDetails.reloadData()
+                }
+            }
+        }
+    }
+}
 extension SendNewNotificationDetailViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if strType == "1"{
+            return 3
+        }else{
+            return self.arrVoucer != nil ? self.arrVoucer.count:0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

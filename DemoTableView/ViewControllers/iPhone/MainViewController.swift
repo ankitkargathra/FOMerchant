@@ -30,7 +30,7 @@ class MainViewController: BaseViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
         setUpSideMenu(isShow: true, title: "Welcome")
     }
@@ -52,8 +52,7 @@ class MainViewController: BaseViewController, UIScrollViewDelegate {
         }else{
             self.tabView.underlineView.frame.origin.x = (scrollView.contentOffset.x + 35) / 3
         }
-        if self.tabView.underlineView.frame.origin.x < UIScreen.main.bounds.size.width / 3
-        {
+        if self.tabView.underlineView.frame.origin.x < UIScreen.main.bounds.size.width / 3{
             self.tabView.btn0.isSelected = true
             self.tabView.btn1.isSelected = false
             self.tabView.btn2.isSelected = false
@@ -81,8 +80,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 100)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TabCell
         
         if indexPath.item == 0{
@@ -95,27 +93,23 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-//    RequestOrderVC
-//    PendingOrderVC
-//    PastOrderVC 
     @objc func addRequestOrderVC(cell: TabCell) {
         RequestOrderVC =  EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kRequestOrderViewController) as! RequestOrderViewController
         RequestOrderVC.view.frame = cell.bounds
-//        RequestOrderVC.basicProfileDelegate = self
+        RequestOrderVC.RequestOrderDelegate = self
         cell.addSubview(RequestOrderVC.view)
     }
     
     @objc func addPendingOrderVC(cell: TabCell) {
         PendingOrderVC = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kPendingOrderViewController) as! PendingOrderViewController
         PendingOrderVC.view.frame = cell.bounds
-//        PendingOrderVC.advancedProfileDelegate = self
+        PendingOrderVC.pendingOrderDelegate = self
         cell.addSubview(PendingOrderVC.view)
     }
     
     @objc func addPastOrderVC(cell: TabCell) {
         PastOrderVC = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kPastOrderViewController) as! PastOrderViewController
         PastOrderVC.view.frame = cell.bounds
-//        PastOrderVC.advancedProfileDelegate = self
         cell.addSubview(PastOrderVC.view)
     }
 }

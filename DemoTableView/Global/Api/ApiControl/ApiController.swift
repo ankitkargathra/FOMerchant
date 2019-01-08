@@ -83,7 +83,7 @@ class ApiController: BaseViewController {
     }
     
     func removeRestrutantPicture(RemovePicture: RemoveRestaurentPicture, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.kremoveRestaurentPictures, methodType: .post, parameter: RemovePicture.toJsonDictionary(), encoding: JSONEncoding.default, header: true) { (result, message, response) in
+        callWebservice(url: URLClass.kremoveRestaurentPictures, methodType: .post, parameter: RemovePicture.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
@@ -95,79 +95,63 @@ class ApiController: BaseViewController {
         }
     }
     
+    
     //MARK: ****************
+    
     func getOrders(getorder: GetOrders, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.kgetOrders, methodType: .post, parameter: getorder.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.kgetOrders, methodType: .post, parameter: getorder.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
     
     func getOrdersDetails(getorderdetail: GetOrdersDetails, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.kgetOrdersDetails, methodType: .post, parameter: getorderdetail.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.kgetOrdersDetails, methodType: .post, parameter: getorderdetail.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
     
     func getOrderStatusUpdate(getorderstatusupdate: GetOrderStatusUpdate, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.korderStatusUpdate, methodType: .post, parameter: getorderstatusupdate.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.korderStatusUpdate, methodType: .post, parameter: getorderstatusupdate.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
     
     func getRestaurentNotificationList(getrestaurentnotificationlist: GetRestaurentNotificationList, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.kgetRestaurentNotificationList, methodType: .post, parameter: getrestaurentnotificationlist.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.kgetRestaurentNotificationList, methodType: .post, parameter: getrestaurentnotificationlist.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
     
     func sendVoucer(sendvoucer: SendVoucer, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.ksendVoucher, methodType: .post, parameter: sendvoucer.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.ksendVoucher, methodType: .post, parameter: sendvoucer.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
     
     func logOut(logout: Logout, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
-        callWebservice(url: URLClass.klogOut, methodType: .post, parameter: logout.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
+        callWebservice(url: URLClass.klogOut, methodType: .post, parameter: logout.toJsonDictionary(), encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
-    //
-    //    func registerUser(register: Register, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    //    {
-    //
-    //        callWebservice(url: URLClass.kRegister, methodType: .post, parameter: register.toJsonDictionary(), encoding: JSONEncoding.default, header: false) { (result, message, response) in
-    //            completionHandler(result, message, response as? JSONDICTIONARY)
-    //        }
-    //    }
-    //
-    //
-    //    func logoutUser(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    //    {
-    //
-    //        callWebservice(url: URLClass.kLogOut, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-    //            completionHandler(result, message, response as? JSONDICTIONARY)
-    //        }
-    //    }
-    //
-    //    func ContactUs(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    //    {
-    //        callWebservice(url: URLClass.kContactUs, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-    //            completionHandler(result, message, response as? JSONDICTIONARY)
-    //        }
-    //    }
-    //
-    //    func UserDetails(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void)
-    //    {
-    //        callWebservice(url: URLClass.kUserDetails, methodType: .post, parameter: parameter, encoding: JSONEncoding.default, header: true) { (result, message, response) in
-    //            completionHandler(result, message, response as? JSONDICTIONARY)
-    //        }
-    //    }
+    
+ func getVoucher(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+        callWebservice(url: URLClass.kgetVoucher, methodType: .post, parameter: parameter, encoding: URLEncoding.default, header: true) { (result, message, response) in
+            
+            completionHandler(result, message, response as? JSONDICTIONARY)
+        }
+    }
+    func SendHelpSupport(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+        callWebservice(url: URLClass.ksendHelpSupport, methodType: .post, parameter: parameter, encoding: URLEncoding.default, header: true) { (result, message, response) in
+            
+            completionHandler(result, message, response as? JSONDICTIONARY)
+        }
+    }
     
     //MARK: ---------------
     

@@ -32,7 +32,7 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
         collectionView.delegate = self
         txtName.validateTextField(type: .Normal, minLength: 5, maxLength: 100, alignment: NSTextAlignment.left, placeHolder: "Name")
         txtPhoneNumber.validateTextField(type: .Mobile, minLength: 6, maxLength: 15, alignment: NSTextAlignment.left, placeHolder: "Phone Number")
-        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 850)
+        scrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 870)
         scrollView.clipsToBounds = true
         btnChangePhoto.setTitle("Change Photo", for: .normal)
         txtEmail.isEnabled = false
@@ -73,6 +73,14 @@ class AccountSettingsViewController: BaseViewController, UIGestureRecognizerDele
                 self.showToast(msg: DEFAULT_ADDRESS_VALID)
             }
         }
+    }
+    
+    @IBAction func btnChangePasswordPressed(_ sender: UIButton) {
+    
+        let vc = EPConstant.Storyboard.ChangePassword.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kChangePasswordViewController) as! ChangePasswordViewController
+        vc.delegete = self
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     override func btnYesTapped() {

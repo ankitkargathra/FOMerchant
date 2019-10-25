@@ -18,6 +18,7 @@ public let DEFAULT_NO_TOPIC         = "Please enter Topic"
 let DATE_FORMAT                     = "MMM d, yyyy"
 let DATE_FORMAT_NOTI_HEAD           = "MMMM, yyyy"
 let DATE_FORMAT_NOTI_OFFER          = "MMM d, yyyy HH:mm a"
+let PASSWORD_MISMATCH               = "Password not match"
 
 
 
@@ -132,6 +133,7 @@ struct EPConstant {
         static let CardDetail                      = UIStoryboard(name: "CardDetail", bundle: nil)
         static let NotificationSummary             = UIStoryboard(name: "NotificationSummary", bundle: nil)
         static let HelpSupport                     = UIStoryboard(name: "HelpAndSupportVC", bundle: nil)
+        static let ChangePassword                  = UIStoryboard(name: "ChangePasswordVC", bundle: nil)
         static let AuthenticationStoryboard_ipad   = UIStoryboard(name: "Authentication_iPad", bundle: nil)
     }
     
@@ -155,6 +157,7 @@ struct EPConstant {
        static let kCardDetailViewController                     = "CardDetailViewController"
        static let kNotificationSummaryViewController            = "NotificationSummaryViewController"
        static let kHelpSupportViewController                    = "HelpAndSupportVC"
+       static let kChangePasswordViewController                 = "ChangePasswordViewController"
         //ipad
        static let kiPadLoginViewController                      = "iPadLoginViewController"
     }

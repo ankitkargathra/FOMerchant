@@ -9,8 +9,9 @@
 import UIKit
 
 class NotificationListViewController: BaseViewController {
-
+    
     @IBOutlet weak var tblViewNotiList: UITableView!
+    @IBOutlet weak var viewSentNotifiHeader: UIView!
     
     var notificationListObj = NotificationListRootClass()
     var attrs = [
@@ -28,7 +29,7 @@ class NotificationListViewController: BaseViewController {
     }
     
     @IBAction func btnSendNewNotiPressed(_ sender: EPButton){
-
+        
         let vc = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kNewNotificationViewcontroller) as! NewNotificationViewcontroller
         vc.delegete = self
         self.navigationController?.pushViewController(vc, animated: true)
@@ -45,9 +46,20 @@ extension NotificationListViewController{
         GenericClass.sharedInstance.CallGetRestaurentNotificationListApi(restaurentId: kCurrentUser.id!){ (isSuccess, message, dictionary) in
             if isSuccess{
                 if let responseDict = dictionary{
-                    self.notificationListObj.ParseDict(fromDictionary: responseDict["data"] as! [JSONDICTIONARY])
-                        self.tblViewNotiList.reloadData()
+                    if (responseDict.count == 0){
+                        self.tblViewNotiList.isHidden = true
+                        self.viewSentNotifiHeader.isHidden = true
+                    }else{
+                        self.notificationListObj.ParseDict(fromDictionary: responseDict["data"] as! [JSONDICTIONARY])
+                        DispatchQueue.main.async {
+                            self.tblViewNotiList.reloadData()
+                        }
+                    }
                 }
+            }else{
+                self.tblViewNotiList.isHidden = true
+                self.viewSentNotifiHeader.isHidden = true
+
             }
         }
     }
@@ -69,7 +81,7 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
         cell.lblDiscountAmount.text = data.voucherName
         cell.lblDescription.text = data.notification
         cell.lblDate.text = "Sent on \(GenericClass.getFormattedDateTime(secondss: Double(data.createdAt)!, NotificationHeader:true))"
-        cell.lblValidDate.text = "Offer valid till \(GenericClass.getFormattedDateTime(secondss: Double(data.endDate)!, NotificationOffer:true))"
+        cell.lblValidDate.text = "- Offer valid till \(GenericClass.getFormattedDateTime(secondss: Double(data.endDate)!, NotificationOffer:true))"
         let buttonTitleStr = NSMutableAttributedString(string:"sent to \(data.userSent!)(\(data.sentTo!))", attributes:attrs)
         let attributedString = NSMutableAttributedString(string:"")
         attributedString.append(buttonTitleStr)
@@ -79,7 +91,7 @@ extension NotificationListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         return UITableViewAutomaticDimension
         
     }

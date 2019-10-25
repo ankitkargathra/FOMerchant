@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DemoTableView/ViewControllers/iPhone/AccountSettingsViewController.swift"
-            timestampString = "567617241.8039891"
+            timestampString = "573303344.706611"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "btnYesTapped()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DemoTableView/ViewControllers/iPhone/RequestOrderViewController.swift"
-            timestampString = "567871866.8704211"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "btnAcceptPressed(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,7 +42,7 @@
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/CardDetailViewController.swift"
-                  timestampString = "568316902.783356"
+                  timestampString = "573303345.096319"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "15"
@@ -73,7 +57,7 @@
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/CardDetailViewController.swift"
-                  timestampString = "568316902.786263"
+                  timestampString = "573303345.100436"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "15"
@@ -88,7 +72,7 @@
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/CardDetailViewController.swift"
-                  timestampString = "568316902.789029"
+                  timestampString = "573303345.104407"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "15"
@@ -103,7 +87,7 @@
                   moduleName = "DemoTableView"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/solulab/Desktop/Biswajit/Project/DemoTableView/DemoTableView/ViewControllers/iPhone/CardDetailViewController.swift"
-                  timestampString = "568316902.791803"
+                  timestampString = "573303345.107525"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "15"
@@ -135,13 +119,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DemoTableView/Global/Api/ApiControl/ApiController.swift"
-            timestampString = "568316881.666919"
+            filePath = "DemoTableView/Others/AppDelegate.swift"
+            timestampString = "582550909.553466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "callWebservice(url:methodType:parameter:encoding:header:completion:)"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "messaging(_:didReceiveRegistrationToken:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

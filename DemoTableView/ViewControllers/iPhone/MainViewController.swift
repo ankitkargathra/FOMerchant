@@ -17,6 +17,9 @@ class MainViewController: BaseViewController, UIScrollViewDelegate {
     var PendingOrderVC = PendingOrderViewController()
     var PastOrderVC    = PastOrderViewController()
     var tabView: TabView!
+    var isSwipe0:Bool = true
+    var isSwipe1:Bool = true
+    var isSwipe2:Bool = true
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -27,6 +30,7 @@ class MainViewController: BaseViewController, UIScrollViewDelegate {
         CollectionView.dataSource = self
         NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "btnPastTapped"), object: nil)
         NotificationCenter.default.addObserver(self,selector: #selector(btnPastTapped), name:NSNotification.Name(rawValue: "btnPastTapped"),object: nil)
+        CollectionView.register(UINib(nibName: "orderList" , bundle: nil), forCellWithReuseIdentifier: "cell")
         // Do any additional setup after loading the view.
     }
     
@@ -75,22 +79,26 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-    {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height - 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TabCell
         
-        if indexPath.item == 0{
-            self.perform(#selector(self.addRequestOrderVC(cell:)), with: cell, afterDelay: 0.1)
-        }else if indexPath.item == 1{
-            self.perform(#selector(self.addPendingOrderVC(cell:)), with: cell, afterDelay: 0.1)
-        }else{
-            self.perform(#selector(self.addPastOrderVC(cell:)), with: cell, afterDelay: 0.1)
-        }
-        return cell
+        let cell = CollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! TabCell
+            if indexPath.item == 0{
+                self.perform(#selector(self.addRequestOrderVC(cell:)), with: cell, afterDelay: 0.1)
+                return cell
+            }
+            else if indexPath.item == 1{
+                self.perform(#selector(self.addPendingOrderVC(cell:)), with: cell, afterDelay: 0.1)
+                return cell
+            }
+            else if indexPath.item == 2{
+                self.perform(#selector(self.addPastOrderVC(cell:)), with: cell, afterDelay: 0.1)
+                return cell
+            }
+        return UICollectionViewCell()
     }
     
     @objc func addRequestOrderVC(cell: TabCell) {

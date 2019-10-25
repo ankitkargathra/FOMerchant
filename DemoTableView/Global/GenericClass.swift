@@ -17,10 +17,12 @@ class GenericClass: BaseViewController {
     //MARK:-  Api methods
     
     func CallSignInApi(email : String,password : String,userType : String,completion: @escaping (_ isSuccess: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> ()) {
-        
+
         let deviceId:String = UUID().uuidString
         ApiController.sharedInstace.loginUser(login: Login.init(email: email, password: password, usertype: userType, deviceId: deviceId), completionHandler: { (isResult, message, dictionary) in
             if isResult{
+              UserDefaults.standard.set(deviceId, forKey: "devicesId")
+              UserDefaults.standard.synchronize()
                 completion(true, message, dictionary)
             }else{completion(false, "",nil)}
         })

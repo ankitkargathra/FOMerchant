@@ -18,10 +18,10 @@ class SideMenuViewController: BaseViewController {
         super.viewDidLoad()
         menuTableView.bounces = false
         NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "gotohome"), object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(btnHomePressed(_:)), name:NSNotification.Name(rawValue: "gotohome"),object: nil)
-        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "gotonotificationlist"), object: nil)
-        NotificationCenter.default.addObserver(self,selector: #selector(btnSendNotificationPressed(_:)), name:NSNotification.Name(rawValue: "gotonotificationlist"),object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "refreshData"), object: nil)
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "gotonotificationlist"), object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(btnHomePressed(_:)), name:NSNotification.Name(rawValue: "gotohome"),object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(btnSendNotificationPressed(_:)), name:NSNotification.Name(rawValue: "gotonotificationlist"),object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(setUserDetails), name: NSNotification.Name(rawValue: "refreshData"), object: nil)
     }
     
@@ -96,7 +96,10 @@ class SideMenuViewController: BaseViewController {
     
     override func btnYesTapped() {
 
-        let deviceId:String = UUID().uuidString
+        var deviceId:String! = ""
+        if UserDefaults.standard.value(forKey: "devicesId") != nil{
+            deviceId = UserDefaults.standard.value(forKey: "devicesId") as? String
+        }
         self.hideAlertButtons()
         GenericClass.sharedInstance.LogoutApi(deviceId: deviceId) { (isSuccess,message,dictionary)  in
             if isSuccess{

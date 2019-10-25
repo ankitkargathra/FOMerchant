@@ -37,12 +37,16 @@ class LoginViewController: BaseViewController {
                     if isSuccess{
                         if let responseDict = dictionary{
                             let arr = responseDict["data"] as! NSArray
-                            let dict = arr[0] as! JSONDICTIONARY
-                            UserRootClass.shared.parseDict(fromDictionary: dict)
-                            UserRootClass.shared.saveToDefaults()
-                            AppDel.checkUserStatus()
-                            if responseDict["message"] != nil {
-                                self.showToast(msg: "Signed In as \(String(describing: UserRootClass.shared.restaurantName!))")
+                            if arr.count > 0{
+                                let dict = arr[0] as! JSONDICTIONARY
+                                UserRootClass.shared.parseDict(fromDictionary: dict)
+                                UserRootClass.shared.saveToDefaults()
+                                AppDel.checkUserStatus()
+                                if responseDict["message"] != nil {
+                                    self.showToast(msg: "Signed In as \(String(describing: UserRootClass.shared.restaurantName!))")
+                                }
+                            }else{
+                                self.showToast(msg: responseDict["message"] as! String)
                             }
                         }
                     }

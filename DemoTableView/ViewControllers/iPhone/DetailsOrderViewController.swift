@@ -18,6 +18,7 @@ class DetailsOrderViewController: BaseViewController {
     
     var orderId:String!
     var detailOrderListing = RequestListRootClass()
+    var pendingOrderDelegate : PendingOrderViewController?
     
     override func viewDidLoad() {
         setUpSideMenu(isShow: false)
@@ -34,8 +35,8 @@ class DetailsOrderViewController: BaseViewController {
     
     override func menuTapped(){
         
-      self.navigationController?.popViewController(animated: true)
-    
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
     @IBAction func btnMarkOrderStatusPressed(_ sender: EPButtonGreenButton) {
@@ -66,7 +67,8 @@ extension DetailsOrderViewController{
     func GetOrderStatusUpdate(orderId:String, status:String, btnTag:Int,userId:String){
         GenericClass.sharedInstance.CallGetOrderStatusUpdateApi(userId: userId, orderId: orderId, status: status, completion: { (isSuccess, message, dictionary) in
             if isSuccess{
-                if let responseDict = dictionary{
+                if let dele = self.pendingOrderDelegate {
+                    dele.getPendingListing()
                     self.navigationController?.popViewController(animated: true)
                 }
             }
@@ -75,7 +77,6 @@ extension DetailsOrderViewController{
     
     func reloadData(){
         if self.detailOrderListing.data.count > 0{
-            self.tblView.reloadData()
             self.headerViewButtons.lblTitle.text = "Order #\(self.detailOrderListing.data[0].orderNumber!)"
             self.headerViewButtons.lblSubTitle.text = "by \(self.detailOrderListing.data[0].fullname!)"
             self.headerViewButtons.lblDate.text = GenericClass.getFormattedDateTime(secondss: Double(self.detailOrderListing.data[0].createdAt!))
@@ -86,6 +87,9 @@ extension DetailsOrderViewController{
             }
             self.btnChangeOrderStatus.backgroundColor = self.detailOrderListing.data[0].orderStatus.trim() == "Order In Kitchen" ? EPConstant.Colors.ORANGE_COLOR_THEME : EPConstant.Colors.GREEN_COLOR_THEME
             self.btnChangeOrderStatus.setTitle(self.detailOrderListing.data[0].orderStatus.trim() == "Order In Kitchen" ? "Mark Order as Ready" : "Mark Order as Delivered" , for: .normal)
+            DispatchQueue.main.async {
+                self.tblView.reloadData()
+            }
         }
         self.tblView.isHidden = self.detailOrderListing.data.count > 0 ? false : true
     }
@@ -93,11 +97,11 @@ extension DetailsOrderViewController{
 extension DetailsOrderViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       return self.detailOrderListing.data != nil ? self.detailOrderListing.data.count : 0
+        return self.detailOrderListing.data != nil ? self.detailOrderListing.data.count : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return self.detailOrderListing.data[section].orderList != nil ? self.detailOrderListing.data[section].orderList.count:0
+        return self.detailOrderListing.data[section].orderList != nil ? self.detailOrderListing.data[section].orderList.count:0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
@@ -110,7 +114,7 @@ extension DetailsOrderViewController: UITableViewDelegate, UITableViewDataSource
         cell.updateConstraintsIfNeeded()
         cell.updateConstraintsIfNeeded()
         let data = self.detailOrderListing.data[indexPath.section].orderList[indexPath.row]
-        cell.lblOrderItems.text = data.quantity+" X "+data.itemName+"("+"\(String(describing: data.customizationValue ?? ""))"+")"
+        cell.lblOrderItems.text = data.quantity+"x "+data.itemName+"("+"\(String(describing: data.customizationValue ?? ""))"+")"
         cell.lblEachItemPrice.text = "$"+"\(Int(Double(data.itemPrice)!)*Int(Double(data.quantity)!))"
         guard let str = data.addOnName as? String else {
             cell.lblAddOnItems.isHidden = true
@@ -135,7 +139,7 @@ extension DetailsOrderViewController: UITableViewDelegate, UITableViewDataSource
         cell.lblSubTotal.text = "$"+data.subTotal
         cell.lblSpecialInstruction.text = data.specialCookingInstructions != nil ? data.specialCookingInstructions : ""
         guard data.specialCookingInstructions != nil else{
-              cell.viewSpecialInstruction.isHidden = true
+            cell.viewSpecialInstruction.isHidden = true
             return cell
         }
         cell.selectionStyle = .none

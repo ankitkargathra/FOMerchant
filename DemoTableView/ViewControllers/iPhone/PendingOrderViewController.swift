@@ -42,6 +42,7 @@ class PendingOrderViewController: BaseViewController {
    
         let vc = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kDetailsOrderViewController) as! DetailsOrderViewController
         vc.orderId = self.pendinglistObj.data[sender.tag].id
+        vc.pendingOrderDelegate = self
         SJSwiftSideMenuController.pushViewController(vc, animated: true)
     
     }
@@ -74,9 +75,7 @@ extension PendingOrderViewController{
     func GetOrderStatusUpdate(orderId:String, status:String, btnTag:Int,userId:String){
         GenericClass.sharedInstance.CallGetOrderStatusUpdateApi(userId: userId, orderId: orderId, status: status, completion: { (isSuccess, message, dictionary) in
             if isSuccess{
-                if let responseDict = dictionary{
-                    self.getPendingListing()
-                }
+                self.getPendingListing()
             }
         })
     }
@@ -89,12 +88,16 @@ extension PendingOrderViewController{
                 dele.tabView.lblPendingListCount.text = "\(self.pendinglistObj.data.count)"
                 dele.tabView.lblPendingListCount.isHidden = self.pendinglistObj.data.count > 0 ? false:true
             }
-            self.tblViewPendingOrder.reloadData()
+            DispatchQueue.main.async {
+                self.tblViewPendingOrder.reloadData()
+            }
         }else{
+            if let dele = self.pendingOrderDelegate{
+                dele.tabView.lblPendingListCount.isHidden = self.pendinglistObj.data.count > 0 ? false:true
+            }
             cnsHeightHeader.constant = 0
         }
         self.tblViewPendingOrder.isHidden = self.pendinglistObj.data.count > 0 ? false : true
-
     }
 }
 
@@ -116,7 +119,7 @@ extension PendingOrderViewController: UITableViewDelegate, UITableViewDataSource
         cell.lblOrderNo.text = data.orderNumber
         cell.lblOrderStatus.text = "- "+data.orderStatus
         cell.lblOrderStatus.textColor = data.orderStatus.trim() == "Order In Kitchen" ?  EPConstant.Colors.ORANGE_COLOR_THEME : EPConstant.Colors.GREEN_COLOR_THEME
-        cell.lblTableNo.text = "Table #"+data.tableNumber
+        cell.lblTableNo.text = data.tableNumber != nil ? "Table #"+data.tableNumber : "Take away"
         cell.lblOrderCount.text = String(data.orderList.count)+" items for "+data.fullname
         cell.lblOrderQueeue.text = data.orderQueue
         cell.btnMarkOrder.backgroundColor = data.orderStatus.trim() == "Order In Kitchen" ? EPConstant.Colors.ORANGE_COLOR_THEME : EPConstant.Colors.GREEN_COLOR_THEME

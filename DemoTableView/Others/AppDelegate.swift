@@ -21,15 +21,17 @@ var kCurrentUser : UserRootClass!
 var FCM_TOKEN = ""
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate,MessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow? //= WallpaperWindow()
+    var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+        configureForPushNotification(application: application)
         IQKeyboardManager.shared.enable = true
         checkUserStatus()
-        configureForPushNotification(application: application)
         // Override point for customization after application launch.
         return true
     }
@@ -77,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -98,7 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+}
+
+extension AppDelegate:UNUserNotificationCenterDelegate{
     //MARK: - Push Notification Delegate -
     
     func configureForPushNotification(application : UIApplication){
@@ -118,44 +123,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         application.registerForRemoteNotifications()
     }
     
-    func navigateTo(isNavigate : Bool = false, isChatNotification:Bool = false) {
-        
-        if let _ = kCurrentUser.id {
-            let rootVC = self.window?.rootViewController
-            var navVc : UINavigationController?
-        }
+    func navigateTo(isNavigate : Bool = false) {
+//        if let _ = kCurrentUser.id {
+//            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "getRequestListing"), object: nil)
+//        }
     }
-    
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Swift.Void){
         let data = notification.request.content.userInfo
-          print(data)
+        print(data)
         completionHandler([.alert,.sound,.badge]) // show notification when app is active
-        navigateTo(isNavigate: false)
-        
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
-    {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void){
         let data = response.notification.request.content.userInfo
         print(data)
-//        if let sessionId = data[AnyHashable("sessionId")] as? String{
-//            self.sessionId = sessionId
-//            navigateTo(isNavigate: true)
-//            return
-//        }
-        navigateTo(isNavigate: true, isChatNotification: true)
-        
     }
-    
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error.localizedDescription)
     }
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
-    {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
         Messaging.messaging().apnsToken = deviceToken
     }
+    
+// To get Fcm token for testing in a single devices
+    
+//    InstanceID.instanceID().instanceID { (result, error) in
+//    if let error = error {
+//    print("Error fetching remote instange ID: \(error)")
+//    } else if let result = result {
+//    print("Remote instance ID token: \(result.token)")
+//    }
+//    }
     
     //    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     //    {
@@ -166,17 +166,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     //            print("TESTED ***** BACKGROUND **** TESTED")
     //        }
     //    }
-    
-    
-    //MARK: - Messaging Delegate -
+}
 
+extension AppDelegate : MessagingDelegate{
+    
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
         FCM_TOKEN = fcmToken
     }
     
-    public func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage){
+    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage)
+    {
         print(remoteMessage.appData)
+        
+        if let userInfo = remoteMessage.appData as? [String: Any]
+        {
+            print(userInfo)
+        }
     }
-    
 }
-

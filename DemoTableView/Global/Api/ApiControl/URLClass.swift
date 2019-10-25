@@ -93,6 +93,7 @@ struct URLClass {
     static let ksendVoucher                     = "\(MAINURL)sendVoucher"
     static let kgetVoucher                      = "\(MAINURL)getVouchers"
     static let ksendHelpSupport                 = "\(MAINURL)helpSupport"
+    static let kchangePassword                 = "\(MAINURL)changePassword"
     
     // logout
     static let klogOut                          = "\(MAINURL)logout"

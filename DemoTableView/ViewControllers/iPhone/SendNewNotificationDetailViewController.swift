@@ -41,7 +41,9 @@ extension SendNewNotificationDetailViewController{
                     for dic in responseDict["data"] as! [JSONDICTIONARY]{
                         self.arrVoucer.append(dic["discount"] as! String + "%" + " OFF")
                     }
-                    self.tblViewNotificationDetails.reloadData()
+                    DispatchQueue.main.async {
+                        self.tblViewNotificationDetails.reloadData()
+                    }
                 }
             }
         }

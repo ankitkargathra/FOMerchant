@@ -17,12 +17,12 @@ class ForgotPassword {
     init(email: String)
     {
         self.email = email
-        
     }
     
     func toJsonDictionary() -> JSONDICTIONARY {
         
         var dict: JSONDICTIONARY = [:]
+        dict["user_type"] = "business"
         if let email = email { dict[EPConstant.LoginKey.email] = email }
         return dict
     }

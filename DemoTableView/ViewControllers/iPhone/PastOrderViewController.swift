@@ -10,7 +10,7 @@ import UIKit
 import SJSwiftSideMenuController
 
 class PastOrderViewController: BaseViewController {
-
+    
     @IBOutlet weak var tblViewPastOrder: UITableView!
     @IBOutlet weak var cnsTopView: NSLayoutConstraint!
     
@@ -27,7 +27,7 @@ class PastOrderViewController: BaseViewController {
         tblViewPastOrder.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getPastListing()
@@ -39,7 +39,7 @@ class PastOrderViewController: BaseViewController {
     }
     
     @IBAction func btnDetailsPressed(_ sender: UIButton) {
-   
+        
         let vc = EPConstant.Storyboard.MainStoryboard.instantiateViewController(withIdentifier: EPConstant.ViewControllerIdentifiers.kDetailsOrderViewController) as! DetailsOrderViewController
         vc.orderId = self.pastlistObj.data[sender.tag].id
         SJSwiftSideMenuController.pushViewController(vc, animated: true)
@@ -53,7 +53,9 @@ extension PastOrderViewController{
                 if let responseDict = dictionary{
                     self.pastlistObj.ParseDict(fromDictionary: responseDict["data"] as! [[String : Any]])
                     if self.pastlistObj.data.count > 0{
-                        self.tblViewPastOrder.reloadData()
+                        DispatchQueue.main.async {
+                            self.tblViewPastOrder.reloadData()
+                        }
                     }
                     self.tblViewPastOrder.isHidden = self.pastlistObj.data.count > 0 ? false : true
                 }

@@ -31,6 +31,8 @@ class RequestOrderViewController: BaseViewController {
         tblViewRequestOrder.estimatedRowHeight = 400.0
         tblViewRequestOrder.estimatedSectionFooterHeight = 400.0
         tblViewRequestOrder.tableFooterView = UIView()
+        NotificationCenter.default.removeObserver(self, name:NSNotification.Name(rawValue: "getRequestListing"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getRequestListing), name: NSNotification.Name(rawValue: "getRequestListing"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,10 +68,13 @@ class RequestOrderViewController: BaseViewController {
 
 extension RequestOrderViewController{
     
-    func getRequestListing(){
+    @objc func getRequestListing(){
         GenericClass.sharedInstance.CallGetOrderApi(restaurentId: kCurrentUser.id, orderStatus:"req", completion: { (isSuccess, message, dictionary) in
             if isSuccess{
                 if let responseDict = dictionary{
+                    if self.requestlistObj.data != nil{
+                        self.requestlistObj.data.removeAll()
+                    }
                     self.requestlistObj.ParseDict(fromDictionary: responseDict["data"] as! [[String : Any]])
                     self.reloadData()
                 }
@@ -79,10 +84,8 @@ extension RequestOrderViewController{
     func GetOrderStatusUpdate(orderId:String, status:String, btnTag:Int, userId:String){
         GenericClass.sharedInstance.CallGetOrderStatusUpdateApi(userId: userId, orderId: orderId, status: status, completion: { (isSuccess, message, dictionary) in
             if isSuccess{
-                if let responseDict = dictionary{
-                    self.requestlistObj.data.remove(at: btnTag)
-                    self.reloadData()
-                }
+                self.requestlistObj.data.remove(at: btnTag)
+                self.reloadData()
             }
         })
     }
@@ -94,10 +97,12 @@ extension RequestOrderViewController{
                 dele.tabView.lblRequestListCount.text = "\(self.requestlistObj.data.count)"
                 dele.tabView.lblRequestListCount.isHidden = self.requestlistObj.data.count > 0 ? false:true
             }
-            self.tblViewRequestOrder.reloadData()
+            DispatchQueue.main.async {
+                self.tblViewRequestOrder.reloadData()
+            }
         }else{
             if let dele = self.RequestOrderDelegate{
-               dele.tabView.lblRequestListCount.isHidden = self.requestlistObj.data.count > 0 ? false:true
+                dele.tabView.lblRequestListCount.isHidden = self.requestlistObj.data.count > 0 ? false:true
             }
             cnsheightHeader.constant = 0
         }
@@ -170,7 +175,8 @@ extension RequestOrderViewController: UITableViewDelegate, UITableViewDataSource
         cell.updateConstraintsIfNeeded()
         cell.updateConstraintsIfNeeded()
         let data = self.requestlistObj.data[indexPath.section].orderList[indexPath.row]
-        cell.lblItemName.text = data.quantity+" X "+data.itemName+"("+"\(String(describing: data.customizationValue ?? ""))"+")"
+        let customValue = data.customizationValue != nil ? "("+"\(String(describing: data.customizationValue ?? ""))"+")" : ""
+        cell.lblItemName.text = data.quantity+"x "+data.itemName+customValue
         cell.lblOrderPrice.text = "$"+"\(Int(Double(data.itemPrice)!)*Int(Double(data.quantity)!))"
         guard let str = data.addOnName as? String else {
             cell.lblAddOns.isHidden = true

@@ -140,7 +140,7 @@ class ApiController: BaseViewController {
         }
     }
     
- func getVoucher(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+    func getVoucher(parameter: JSONDICTIONARY!, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
         callWebservice(url: URLClass.kgetVoucher, methodType: .post, parameter: parameter, encoding: URLEncoding.default, header: true) { (result, message, response) in
             
             completionHandler(result, message, response as? JSONDICTIONARY)
@@ -152,7 +152,12 @@ class ApiController: BaseViewController {
             completionHandler(result, message, response as? JSONDICTIONARY)
         }
     }
-    
+    func ChangePassword(oldPassword: String, newPassword: String, completionHandler:@escaping (_ result: Bool, _ message: String, _ returnData: JSONDICTIONARY?) -> Void){
+        callWebservice(url: URLClass.kchangePassword, methodType: .post, parameter: ["old_password":oldPassword,"password":newPassword], encoding: URLEncoding.default, header: true) { (result, message, response) in
+            
+            completionHandler(result, message, response as? JSONDICTIONARY)
+        }
+    }
     //MARK: ---------------
     
     func callWebservice(url: String, methodType: HTTPMethod, parameter: JSONDICTIONARY?, encoding: ParameterEncoding, header: Bool = true, completion: @escaping (_ result: Bool, _ message: String, _ returnData: Any?) -> ()) {
